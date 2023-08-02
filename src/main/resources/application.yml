@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5434/market_db
+    username: market_db
+    password: 123
+#    driver-class-name: org.postgres.Driver
+#    platform: postgres
+
+  jpa:
+    show-sql: true
+    #    properties:
+    #      hibernate:
+    #        format_sql: true
+    hibernate:
+      ddl-auto: update

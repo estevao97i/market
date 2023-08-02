@@ -1,4 +1,4 @@
-package java.estevao.market;
+package estevao.market;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
