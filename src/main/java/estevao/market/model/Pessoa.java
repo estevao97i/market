@@ -19,7 +19,7 @@ public abstract class Pessoa implements Serializable {
     @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     // orphanRemoval = se apagar uma pessoa, vai apagar os endereços juntamente
     // cascade = se fizer nesse objeto ele vai fazer em todos os outros relacionados a ele
-    // FetchType.LAZ = só vai carregar os endereços quando fizer um getEndereco
+    // FetchType.LAZY = só vai carregar os endereços quando fizer um getEndereco
     private List<Endereco> enderecos = new ArrayList<>();
 
     private String nome;
