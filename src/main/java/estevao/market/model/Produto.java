@@ -5,43 +5,27 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
-
 @Entity
 @Table(name = "produto")
-@SequenceGenerator(name = "seq_produto", sequenceName = "seq_produto", allocationSize = 1, initialValue = 1)
+@SequenceGenerator(name = "seq_produto", sequenceName = "seq_produto", allocationSize = 1)
 public class Produto implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_produto")
     private Long id;
-
     private String tipoUnidade;
-
     private String nome;
-
     private Boolean ativo = Boolean.TRUE;
-
     @Column(columnDefinition = "text",length = 2000)
     private String descricao;
-
     private Double peso;
-
     private Double largura;
-
     private Double altura;
-
     private Double profundidade;
-
     private BigDecimal valorVenda = BigDecimal.ZERO;
-
     private Integer qtdEstoque = 0;
-
     private Integer qtdAlertaEstoque = 0;
-
     private String linkYoutube;
-
     private Boolean alertaqtdEstoque = Boolean.FALSE;
-
     private Integer qtdClique = 0;
 
     public Long getId() {
@@ -144,9 +128,7 @@ public class Produto implements Serializable {
         return alertaqtdEstoque;
     }
 
-    public void setAlertaqtdEstoque(Boolean alertaqtdEstoque) {
-        this.alertaqtdEstoque = alertaqtdEstoque;
-    }
+    public void setAlertaqtdEstoque(Boolean alertaqtdEstoque) { this.alertaqtdEstoque = alertaqtdEstoque; }
 
     public Integer getQtdClique() {
         return qtdClique;
@@ -177,7 +159,4 @@ public class Produto implements Serializable {
         return Objects.hash(id);
     }
 
-    //    @OneToMany(targetEntity = NotaItemProduto.class)
-//    @JoinColumn(name = "notaItem")
-//    private List<NotaItemProduto> notasItemProduto;
 }
