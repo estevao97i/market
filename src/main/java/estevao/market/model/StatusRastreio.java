@@ -13,20 +13,14 @@ public class StatusRastreio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_status_rastreio")
     private Long id;
-
+    @ManyToOne(targetEntity = VendaCompraLoja.class)
+    @JoinColumn(name = "venda_compra_loja_id", nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "venda_compra_loja_fk"))
+    private VendaCompraLoja vendaCompraLoja;
     private String centroDistribuicao;
-
     private String cidade;
-
     private String estado;
-
     private String status;
-
-//    @ManyToOne(targetEntity = VendaCompraLoja.class)
-//    @JoinColumn(name = "venda_compra_loja_id", nullable = false,
-//            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "venda_compra_loja_fk"))
-//    private VendaCompraLoja vendaCompraLoja;
-
 
     public Long getId() {
         return id;
@@ -66,6 +60,14 @@ public class StatusRastreio implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public VendaCompraLoja getVendaCompraLoja() {
+        return vendaCompraLoja;
+    }
+
+    public void setVendaCompraLoja(VendaCompraLoja vendaCompraLoja) {
+        this.vendaCompraLoja = vendaCompraLoja;
     }
 
     @Override
