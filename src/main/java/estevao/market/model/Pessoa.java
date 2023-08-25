@@ -22,8 +22,11 @@ public abstract class Pessoa implements Serializable {
     // FetchType.LAZY = só vai carregar os endereços quando fizer um getEndereco
     private List<Endereco> enderecos = new ArrayList<>();
 
+    @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String telefone;
 
     @Override

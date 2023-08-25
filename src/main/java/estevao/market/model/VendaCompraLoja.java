@@ -42,21 +42,25 @@ public class VendaCompraLoja implements Serializable {
     private NotaFiscalVenda notaFiscalVenda;
 
     @ManyToOne(targetEntity = CupomDesconto.class)
-    @JoinColumn(name = "cupom_desconto_id", nullable = false,
-            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "cupom_desconto_fk"))
+    @JoinColumn(name = "cupom_desconto_id", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "cupom_desconto_fk"))
     private CupomDesconto cupomDesconto;
 
+    @Column(nullable = false)
     private BigDecimal valorTotal;
 
     private BigDecimal valorDesconto;
 
+    @Column(nullable = false)
     private BigDecimal valorFrete;
 
+    @Column(nullable = false)
     private Integer diasEntrega;
 
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataVenda;
 
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataEntrega;
 
@@ -67,7 +71,6 @@ public class VendaCompraLoja implements Serializable {
         VendaCompraLoja that = (VendaCompraLoja) o;
         return Objects.equals(id, that.id);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(id);
