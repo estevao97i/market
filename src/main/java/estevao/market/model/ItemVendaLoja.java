@@ -23,6 +23,7 @@ public class ItemVendaLoja implements Serializable {
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "venda_compra_loja_fk"))
     private VendaCompraLoja vendaCompraLoja;
 
+    @Column(nullable = false)
     private Double quantidade;
 
     @Override
