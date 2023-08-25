@@ -19,6 +19,7 @@ public class CupomDesconto implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataValidadeCupom;
 
+    @Column(nullable = false)
     private String codDesc;
     private BigDecimal valorRealDesc;
     private BigDecimal valorPorcentDesconto;

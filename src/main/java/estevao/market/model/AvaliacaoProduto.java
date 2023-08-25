@@ -3,7 +3,6 @@ package estevao.market.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.lang.annotation.Target;
 import java.util.Objects;
 
 @Entity
@@ -13,7 +12,9 @@ public class AvaliacaoProduto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_avaliacao_produto")
     private Long id;
+    @Column(nullable = false)
     private String descricao;
+    @Column(nullable = false)
     private Integer nota;
     @ManyToOne(targetEntity = Pessoa.class)
     @JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
