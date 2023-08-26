@@ -1,7 +1,10 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5434/market_db
+    # url de conexão do banco de dados
+    url: jdbc:postgresql://localhost:5434/market_db?autoreconnect=true
+    # username criado
     username: market_db
+    # password criado
     password: 123
 #    driver-class-name: org.postgres.Driver
 #    platform: postgres
@@ -10,7 +13,53 @@ spring:
     show-sql: true
     properties:
       hibernate:
+#        mostra os dados do sql no log
         format_sql: true
+        temp:
+#          gerencia metadados e evita erros no projeto
+          use_jdbc_metadata_defaults: true
+#          mostra pro hibernate qual linguagem deve usar de banco de dados
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        mostra pro hibernate a plataforma que deve usar de banco de dados
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     hibernate:
+#      atualiza toda vez que roda o banco
       ddl-auto: update
+
+  servlet:
+    multipart:
+#      maior arquivo suportado no projeto
+      max-file-size: 10000KB
+#      maior requisição suportada no projeto
+      max-request-size: 10000KB
+#      se está habilitado upload
+      enabled: true
+
+  http:
+    encoding:
+      # codificação aceita caracteres do português
+      charset: UTF-8
+      # habilita o utf-8
+      enabled: true
+      # força o utf-8
+      force: true
+      # força na requisição
+      force-request: true
+      # força na resposta
+      force-response: true
+
+server:
+  servlet:
+#    o path do projeto vai rodar nesse context-path (localhost:8080/context-path)
+    context-path: /loja_virtual
+  compression:
+    # diminui o tanto de dados que vai transitar entre o servidor (compressão de dados)
+    enabled: true
+    # tipos que serão comprimidos
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    # tamanho mínimo de compressão
+    min-response-size: 1024
+  # http2 é um protocolo mais performático da web
+  http2:
+    enabled: true
 
