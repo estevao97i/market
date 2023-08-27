@@ -1,9 +1,8 @@
 package estevao.market.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "pessoa_fisica")

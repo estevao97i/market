@@ -1,7 +1,7 @@
 package estevao.market.model;
 
 import estevao.market.enums.StatusContaPagar;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

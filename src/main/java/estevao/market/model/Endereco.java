@@ -1,7 +1,7 @@
 package estevao.market.model;
 
 import estevao.market.enums.TipoEndereco;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;

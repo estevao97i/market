@@ -1,9 +1,8 @@
 package estevao.market.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Objects;
 
 @Entity

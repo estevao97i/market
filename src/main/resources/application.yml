@@ -29,7 +29,7 @@ spring:
       # colocar um pool nos statements
       pool-prepared-statements: true
       # maximo de portas abertas para conexões no banco de dados
-      max-open-prepared-statements: 350
+      max-open-prepared-statements: 2
 
   jpa:
     show-sql: true
