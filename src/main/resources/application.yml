@@ -17,7 +17,7 @@ spring:
       # numero mínimo de conexões inativas mantidas pelo HikariCP em um conjunto de conexões
       minimum-idle: 200
       # numero maximo de conexoes ativas (pool de conexão)
-      maximum-pool-size: 550
+      maximum-pool-size: 350
       # tempo ocioso para conexao
       idle-timeout: 10000
       # nome do pool
@@ -29,7 +29,7 @@ spring:
       # colocar um pool nos statements
       pool-prepared-statements: true
       # maximo de portas abertas para conexões no banco de dados
-      max-open-prepared-statements: 550
+      max-open-prepared-statements: 350
 
   jpa:
     show-sql: true
@@ -105,7 +105,7 @@ server:
     # http2 é um protocolo mais performático da web
     enabled: true
   tomcat:
-    # maximo que o servidor tomcat vai receber de requisição
+    # maximo que o servidor tomcat vai receber de requisições
     max-connections: 50000
     # processamento por debaixo dos panos
     min-spare-threads: 1000
