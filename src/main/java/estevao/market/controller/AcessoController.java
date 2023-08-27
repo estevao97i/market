@@ -26,6 +26,6 @@ public class AcessoController {
 
         service.deleteById(acesso.getId());
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity("Acesso removido", HttpStatus.OK);
     }
 }

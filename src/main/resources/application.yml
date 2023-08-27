@@ -15,9 +15,9 @@ spring:
       # numero máximo de millisegundos que um cliente aguardará por uma conexão
       connection-timeout: 20000
       # numero mínimo de conexões inativas mantidas pelo HikariCP em um conjunto de conexões
-      minimum-idle: 200
+#      minimum-idle: 200 (voltar ao normal)
       # numero maximo de conexoes ativas (pool de conexão)
-      maximum-pool-size: 350
+#      maximum-pool-size: 350 (voltar ao normal)
       # tempo ocioso para conexao
       idle-timeout: 10000
       # nome do pool
@@ -29,7 +29,7 @@ spring:
       # colocar um pool nos statements
       pool-prepared-statements: true
       # maximo de portas abertas para conexões no banco de dados
-      max-open-prepared-statements: 2
+      max-open-prepared-statements: 1
 
   jpa:
     show-sql: true
