@@ -3,11 +3,12 @@ package estevao.market;
 import estevao.market.controller.AcessoController;
 import estevao.market.model.Acesso;
 import estevao.market.repository.AcessoRepository;
-import estevao.market.service.AcessoService;
 import junit.framework.TestCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest(classes = MarketApplication.class)
 class MarketApplicationTests extends TestCase {
@@ -34,6 +35,7 @@ class MarketApplicationTests extends TestCase {
 
 		var acessoSalvo = controller.salvar(acesso).getBody();
 
+		assert acessoSalvo != null;
 		assertTrue(acessoSalvo.getId() > 0);
 		assertEquals("ROLE_ADMIN", acessoSalvo.getDescricao());
 
@@ -49,6 +51,20 @@ class MarketApplicationTests extends TestCase {
 		var acessoRetornado = repository.findById(acesso.getId()).orElse(null);
 
 		assertNull(acessoRetornado);
+	}
+
+	@Test
+	public void testaQueryNativaSql() {
+		var acesso = new Acesso();
+
+		acesso.setDescricao("ROLE_ALUNO");
+		var acessoSalvo = controller.salvar(acesso).getBody();
+
+		List<Acesso> resultAcesso = repository.buscarAcessoDesc("aluno".toUpperCase().trim());
+
+		assertEquals(1, resultAcesso.size());
+
+		repository.deleteById(acessoSalvo.getId());
 	}
 
 }
