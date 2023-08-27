@@ -15,15 +15,40 @@ class MarketApplicationTests extends TestCase {
 	@Autowired
 	private AcessoController controller;
 
+	@Autowired
+	private AcessoRepository repository;
+
+	public Acesso criarObjetoNoBanco() {
+		var acessoSalvo = new Acesso();
+		acessoSalvo.setDescricao("ROLE_TESTE");
+		repository.saveAndFlush(acessoSalvo);
+		return acessoSalvo;
+	}
+
 	@Test
-	public void tentaCadastrarAcesso() {
-		Acesso acesso = new Acesso();
+	public void testaCadastrarAcessoController() {
+
+		// teste de salvar na camada de Resource
+		var acesso = new Acesso();
 		acesso.setDescricao("ROLE_ADMIN");
 
 		var acessoSalvo = controller.salvar(acesso).getBody();
 
 		assertTrue(acessoSalvo.getId() > 0);
 		assertEquals("ROLE_ADMIN", acessoSalvo.getDescricao());
+
+	}
+
+	@Test
+	public void testaDeletarAcessoRepository() {
+		var acesso = criarObjetoNoBanco();
+
+		repository.deleteById(acesso.getId());
+		repository.flush();
+
+		var acessoRetornado = repository.findById(acesso.getId()).orElse(null);
+
+		assertNull(acessoRetornado);
 	}
 
 }
