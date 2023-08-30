@@ -1,5 +1,6 @@
 package estevao.market.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Acesso implements GrantedAuthority {
     private String descricao; /* Acesso ex: ROLE_ADMIN ou ROLE_SECRETARIO ou ROLE_COORDENADOR */
 
     @Override
+    @JsonIgnore
     public String getAuthority() {
         return this.descricao;
     }
