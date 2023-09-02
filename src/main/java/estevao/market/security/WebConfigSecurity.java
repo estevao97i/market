@@ -15,8 +15,9 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter implements H
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.GET, "/salvarAcesso", "/deleteAcesso")
+        web.ignoring().antMatchers(HttpMethod.GET, "/salvarAcesso", "/deleteAcesso", "/updateAcesso")
                 .antMatchers(HttpMethod.POST, "/salvarAcesso")
-                .antMatchers(HttpMethod.DELETE, "/deleteAcesso");
+                .antMatchers(HttpMethod.DELETE, "/deleteAcesso")
+                .antMatchers(HttpMethod.PUT, "/updateAcesso");
     }
 }

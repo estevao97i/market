@@ -27,4 +27,16 @@ public class AcessoService {
     public Acesso findById(Long id) {
          return repository.findById(id).get();
     }
+
+    public List<Acesso> buscarPorDesc(String desc) {
+         return repository.buscarAcessoDesc(desc);
+    }
+
+    public Acesso update(Acesso acesso) {
+         var acessoUpdate = repository.findById(acesso.getId()).get();
+         acessoUpdate.setDescricao(acesso.getDescricao());
+         var acessoSalvo = repository.save(acessoUpdate);
+
+         return acessoSalvo;
+    }
 }

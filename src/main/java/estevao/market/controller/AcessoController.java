@@ -20,7 +20,7 @@ public class AcessoController {
 
         List<Acesso> acessos = service.listAll();
 
-        return new ResponseEntity<List<Acesso>>(acessos, HttpStatus.OK);
+        return new ResponseEntity<>(acessos, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
@@ -28,7 +28,15 @@ public class AcessoController {
 
         Acesso acesso = service.findById(id);
 
-        return new ResponseEntity<Acesso>(acesso, HttpStatus.OK);
+        return new ResponseEntity<>(acesso, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/buscarPorDesc/{desc}" )
+    public ResponseEntity<List<Acesso>> buscarPorDesc(@PathVariable("desc") String desc) {
+
+        List<Acesso> listAcesso = service.buscarPorDesc(desc);
+
+        return new ResponseEntity<>(listAcesso, HttpStatus.OK);
     }
 
     @PostMapping(value = "/salvarAcesso")
@@ -36,7 +44,7 @@ public class AcessoController {
 
         var acessoSalvo = service.salvar(acesso);
 
-        return new ResponseEntity<Acesso>(acessoSalvo, HttpStatus.CREATED);
+        return new ResponseEntity<>(acessoSalvo, HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/deleteAcesso")
@@ -53,5 +61,13 @@ public class AcessoController {
         service.deleteById(id);
 
         return new ResponseEntity("Acesso removido pelo id", HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/updateAcesso")
+    public ResponseEntity<Acesso> update(@RequestBody Acesso acesso) {
+
+        var acessoUpdate = service.update(acesso);
+
+        return new ResponseEntity<>(acessoUpdate, HttpStatus.OK);
     }
 }

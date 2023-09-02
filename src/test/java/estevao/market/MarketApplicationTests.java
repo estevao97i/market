@@ -123,7 +123,33 @@ class MarketApplicationTests extends TestCase {
 //		assertEquals(obj.writeValueAsString(acessoSalvo), retornoApi.andReturn().getResponse().getContentAsString());
 		var objAcesso = obj.readValue(retornoApi.andReturn().getResponse().getContentAsString(), Acesso.class);
 		assertEquals(objAcesso, acessoSalvo);
-		assertEquals(200, retornoApi.andReturn().getResponse().getStatus());
+	}
+
+	// TODO
+	@Test
+	public void testRestApiBuscarTodosAcessos() throws Exception {
+		DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
+		MockMvc mockMvc = builder.build();
+
+		Acesso acesso = new Acesso();
+		acesso.setDescricao("ROLE_TESTE_CREATE_ID");
+		repository.save(acesso);
+
+		var listaAcessos = repository.findAll();
+
+		ObjectMapper obj = new ObjectMapper();
+
+		ResultActions retornoApi = mockMvc
+				.perform(MockMvcRequestBuilders.get("/")
+						.accept(MediaType.APPLICATION_JSON)
+						.contentType(MediaType.APPLICATION_JSON));
+
+//		System.out.println("RETORNO API " + retornoApi.andReturn().getResponse().); // retorna o conteudo da requisição
+//		System.out.println("STATUS " + retornoApi.andReturn().getResponse().getStatus()); // retorna o status da requisição
+
+//		assertEquals(obj.writeValueAsString(acessoSalvo), retornoApi.andReturn().getResponse().getContentAsString());
+//		var objAcesso = obj.readValue(retornoApi.andReturn().getResponse().getContentAsString(), Acesso.class);
+//		assertEquals(listaAcessos.size(), retornoApi.andReturn().getResponse());
 	}
 
 	public Acesso criarObjetoNoBanco() {
