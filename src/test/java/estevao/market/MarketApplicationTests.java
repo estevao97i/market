@@ -59,20 +59,71 @@ class MarketApplicationTests extends TestCase {
 
 		Acesso acesso = new Acesso();
 		acesso.setDescricao("ROLE_TESTE_DELETE");
-		repository.save(acesso);
+		var acessoSalvo = repository.save(acesso);
 
 		ObjectMapper obj = new ObjectMapper();
 
 		ResultActions retornoApi = mockMvc
-				.perform(MockMvcRequestBuilders.post("/deleteAcesso")
+				.perform(MockMvcRequestBuilders.delete("/deleteAcesso")
+						.content(obj.writeValueAsString(acessoSalvo))
+						.accept(MediaType.APPLICATION_JSON)
+						.contentType(MediaType.APPLICATION_JSON));
+
+		System.out.println("RETORNO API " + retornoApi.andReturn().getResponse().getContentAsString()); // retorna o conteudo da requisição
+		System.out.println("STATUS " + retornoApi.andReturn().getResponse().getStatus()); // retorna o status da requisição
+
+		assertEquals("Acesso removido", retornoApi.andReturn().getResponse().getContentAsString());
+		assertEquals(200, retornoApi.andReturn().getResponse().getStatus());
+	}
+
+	@Test
+	public void testRestApiDeletarAcessoPorId() throws Exception {
+		DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
+		MockMvc mockMvc = builder.build();
+
+		Acesso acesso = new Acesso();
+		acesso.setDescricao("ROLE_TESTE_DELETE_ID");
+		Acesso acessoSalvo = repository.save(acesso);
+
+		ObjectMapper obj = new ObjectMapper();
+
+		ResultActions retornoApi = mockMvc
+				.perform(MockMvcRequestBuilders.delete("/deleteAcesso/" + acessoSalvo.getId())
 						.content(obj.writeValueAsString(acesso))
 						.accept(MediaType.APPLICATION_JSON)
 						.contentType(MediaType.APPLICATION_JSON));
 
-		Acesso objAcessoRetorno = obj.readValue(
-				retornoApi.andReturn().getResponse().getContentAsString(), Acesso.class);
+		System.out.println("RETORNO API " + retornoApi.andReturn().getResponse().getContentAsString()); // retorna o conteudo da requisição
+		System.out.println("STATUS " + retornoApi.andReturn().getResponse().getStatus()); // retorna o status da requisição
 
-		assertEquals(acesso.getDescricao(), objAcessoRetorno.getDescricao());
+		assertEquals("Acesso removido pelo id", retornoApi.andReturn().getResponse().getContentAsString());
+		assertEquals(200, retornoApi.andReturn().getResponse().getStatus());
+	}
+
+	@Test
+	public void testRestApiBuscarAcessoPorId() throws Exception {
+		DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
+		MockMvc mockMvc = builder.build();
+
+		Acesso acesso = new Acesso();
+		acesso.setDescricao("ROLE_TESTE_CREATE_ID");
+		Acesso acessoSalvo = repository.save(acesso);
+
+		ObjectMapper obj = new ObjectMapper();
+
+		ResultActions retornoApi = mockMvc
+				.perform(MockMvcRequestBuilders.get("/" + acessoSalvo.getId())
+						.content(obj.writeValueAsString(acesso))
+						.accept(MediaType.APPLICATION_JSON)
+						.contentType(MediaType.APPLICATION_JSON));
+
+		System.out.println("RETORNO API " + retornoApi.andReturn().getResponse().getContentAsString()); // retorna o conteudo da requisição
+		System.out.println("STATUS " + retornoApi.andReturn().getResponse().getStatus()); // retorna o status da requisição
+
+//		assertEquals(obj.writeValueAsString(acessoSalvo), retornoApi.andReturn().getResponse().getContentAsString());
+		var objAcesso = obj.readValue(retornoApi.andReturn().getResponse().getContentAsString(), Acesso.class);
+		assertEquals(objAcesso, acessoSalvo);
+		assertEquals(200, retornoApi.andReturn().getResponse().getStatus());
 	}
 
 	public Acesso criarObjetoNoBanco() {

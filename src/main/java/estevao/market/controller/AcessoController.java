@@ -7,11 +7,29 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class AcessoController {
 
     @Autowired
     private AcessoService service;
+
+    @GetMapping(value = "/listar-todos")
+    public ResponseEntity<List<Acesso>> listAll() {
+
+        List<Acesso> acessos = service.listAll();
+
+        return new ResponseEntity<List<Acesso>>(acessos, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Acesso> findById(@PathVariable("id") Long id) {
+
+        Acesso acesso = service.findById(id);
+
+        return new ResponseEntity<Acesso>(acesso, HttpStatus.OK);
+    }
 
     @PostMapping(value = "/salvarAcesso")
     public ResponseEntity<Acesso> salvar(@RequestBody Acesso acesso) {
@@ -27,5 +45,13 @@ public class AcessoController {
         service.deleteById(acesso.getId());
 
         return new ResponseEntity("Acesso removido", HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/deleteAcesso/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Long id) {
+
+        service.deleteById(id);
+
+        return new ResponseEntity("Acesso removido pelo id", HttpStatus.OK);
     }
 }
