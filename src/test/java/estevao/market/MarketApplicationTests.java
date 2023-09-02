@@ -1,5 +1,6 @@
 package estevao.market;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import estevao.market.controller.AcessoController;
 import estevao.market.model.Acesso;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 @SpringBootTest(classes = MarketApplication.class)
@@ -74,6 +76,8 @@ class MarketApplicationTests extends TestCase {
 
 		assertEquals("Acesso removido", retornoApi.andReturn().getResponse().getContentAsString());
 		assertEquals(200, retornoApi.andReturn().getResponse().getStatus());
+
+		repository.deleteById(acessoSalvo.getId());
 	}
 
 	@Test
@@ -89,7 +93,7 @@ class MarketApplicationTests extends TestCase {
 
 		ResultActions retornoApi = mockMvc
 				.perform(MockMvcRequestBuilders.delete("/deleteAcesso/" + acessoSalvo.getId())
-						.content(obj.writeValueAsString(acesso))
+						.content(obj.writeValueAsString(acessoSalvo))
 						.accept(MediaType.APPLICATION_JSON)
 						.contentType(MediaType.APPLICATION_JSON));
 
@@ -98,6 +102,8 @@ class MarketApplicationTests extends TestCase {
 
 		assertEquals("Acesso removido pelo id", retornoApi.andReturn().getResponse().getContentAsString());
 		assertEquals(200, retornoApi.andReturn().getResponse().getStatus());
+
+		repository.deleteById(acessoSalvo.getId());
 	}
 
 	@Test
@@ -113,7 +119,7 @@ class MarketApplicationTests extends TestCase {
 
 		ResultActions retornoApi = mockMvc
 				.perform(MockMvcRequestBuilders.get("/" + acessoSalvo.getId())
-						.content(obj.writeValueAsString(acesso))
+						.content(obj.writeValueAsString(acessoSalvo))
 						.accept(MediaType.APPLICATION_JSON)
 						.contentType(MediaType.APPLICATION_JSON));
 
@@ -123,9 +129,37 @@ class MarketApplicationTests extends TestCase {
 //		assertEquals(obj.writeValueAsString(acessoSalvo), retornoApi.andReturn().getResponse().getContentAsString());
 		var objAcesso = obj.readValue(retornoApi.andReturn().getResponse().getContentAsString(), Acesso.class);
 		assertEquals(objAcesso, acessoSalvo);
+
+		repository.deleteById(acessoSalvo.getId());
 	}
 
-	// TODO
+	@Test
+	public void testRestApiBuscarAcessosPorDesc() throws Exception {
+		DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
+		MockMvc mockMvc = builder.build();
+
+		Acesso acesso = new Acesso();
+		acesso.setDescricao("ROLE_TESTE_OBTER_LIST");
+		Acesso acessoSalvo = repository.save(acesso);
+
+		ObjectMapper obj = new ObjectMapper();
+
+		ResultActions retornoApi = mockMvc
+				.perform(MockMvcRequestBuilders.get("/buscarPorDesc/OBTER_LIST")
+						.content(obj.writeValueAsString(acessoSalvo))
+						.accept(MediaType.APPLICATION_JSON)
+						.contentType(MediaType.APPLICATION_JSON));
+
+		System.out.println("RETORNO API " + retornoApi.andReturn().getResponse().getContentAsString()); // retorna o conteudo da requisição
+		System.out.println("STATUS " + retornoApi.andReturn().getResponse().getStatus()); // retorna o status da requisição
+
+		List<Acesso> listaRetorno = obj.readValue(retornoApi.andReturn().getResponse().getContentAsString(), new TypeReference<List<Acesso>>() {});
+
+		assertEquals(1, listaRetorno.size());
+
+		repository.deleteById(acessoSalvo.getId());
+	}
+
 	@Test
 	public void testRestApiBuscarTodosAcessos() throws Exception {
 		DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
@@ -133,23 +167,22 @@ class MarketApplicationTests extends TestCase {
 
 		Acesso acesso = new Acesso();
 		acesso.setDescricao("ROLE_TESTE_CREATE_ID");
-		repository.save(acesso);
+		var acessoSalvo = repository.save(acesso);
 
 		var listaAcessos = repository.findAll();
 
 		ObjectMapper obj = new ObjectMapper();
 
 		ResultActions retornoApi = mockMvc
-				.perform(MockMvcRequestBuilders.get("/")
+				.perform(MockMvcRequestBuilders.get("/listar-todos")
 						.accept(MediaType.APPLICATION_JSON)
 						.contentType(MediaType.APPLICATION_JSON));
 
-//		System.out.println("RETORNO API " + retornoApi.andReturn().getResponse().); // retorna o conteudo da requisição
-//		System.out.println("STATUS " + retornoApi.andReturn().getResponse().getStatus()); // retorna o status da requisição
+		List<Acesso> listAcesso = obj.readValue(retornoApi.andReturn().getResponse().getContentAsString(), new TypeReference<List<Acesso>>() {});
 
-//		assertEquals(obj.writeValueAsString(acessoSalvo), retornoApi.andReturn().getResponse().getContentAsString());
-//		var objAcesso = obj.readValue(retornoApi.andReturn().getResponse().getContentAsString(), Acesso.class);
-//		assertEquals(listaAcessos.size(), retornoApi.andReturn().getResponse());
+		assertEquals(listaAcessos.size(), listAcesso.size());
+
+		repository.deleteById(acessoSalvo.getId());
 	}
 
 	public Acesso criarObjetoNoBanco() {
