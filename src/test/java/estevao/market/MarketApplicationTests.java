@@ -52,7 +52,28 @@ class MarketApplicationTests extends TestCase {
 		assertEquals(acesso.getDescricao(), objAcessoRetorno.getDescricao());
 	}
 
+	@Test
+	public void testRestApiDeletarAcesso() throws Exception {
+		DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
+		MockMvc mockMvc = builder.build();
 
+		Acesso acesso = new Acesso();
+		acesso.setDescricao("ROLE_TESTE_DELETE");
+		repository.save(acesso);
+
+		ObjectMapper obj = new ObjectMapper();
+
+		ResultActions retornoApi = mockMvc
+				.perform(MockMvcRequestBuilders.post("/deleteAcesso")
+						.content(obj.writeValueAsString(acesso))
+						.accept(MediaType.APPLICATION_JSON)
+						.contentType(MediaType.APPLICATION_JSON));
+
+		Acesso objAcessoRetorno = obj.readValue(
+				retornoApi.andReturn().getResponse().getContentAsString(), Acesso.class);
+
+		assertEquals(acesso.getDescricao(), objAcessoRetorno.getDescricao());
+	}
 
 	public Acesso criarObjetoNoBanco() {
 		var acessoSalvo = new Acesso();
