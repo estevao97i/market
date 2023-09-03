@@ -29,6 +29,9 @@ public abstract class Pessoa implements Serializable {
     @Column(nullable = false)
     private String telefone;
 
+    @Column
+    private String tipoPessoa;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,5 +83,13 @@ public abstract class Pessoa implements Serializable {
 
     public void setEnderecos(List<Endereco> enderecos) {
         this.enderecos = enderecos;
+    }
+
+    public String getTipoPessoa() {
+        return tipoPessoa;
+    }
+
+    public void setTipoPessoa(String tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
     }
 }
