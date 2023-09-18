@@ -42,6 +42,8 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler {
         errorDTO.setError(str.toString());
         errorDTO.setCode(status.value() + " ==> " + status.getReasonPhrase());
 
+        ex.printStackTrace();
+
         return new ResponseEntity<>(errorDTO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -73,6 +75,8 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler {
 
         errorDTO.setError(str.toString());
         errorDTO.setCode(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+
+        ex.printStackTrace();
 
         return new ResponseEntity<>(errorDTO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
