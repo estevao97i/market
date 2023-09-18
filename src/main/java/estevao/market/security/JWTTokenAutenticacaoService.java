@@ -3,8 +3,10 @@ package estevao.market.security;
 import estevao.market.ApplicationContextLoad;
 import estevao.market.model.Usuario;
 import estevao.market.repository.UsuarioRepository;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 
 /* Criar autenticacao e retornar autenticacao JWT */
@@ -52,34 +55,46 @@ public class JWTTokenAutenticacaoService {
     }
 
     // Retorna o usuario validado com token ou caso nao seja valido retorna null
-    public Authentication getAuthentication(HttpServletRequest request, HttpServletResponse response) {
+    public Authentication getAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String token = request.getHeader(HEADER_STRING);
 
-        if (token != null) {
+        try {
 
-            String tokenLimpo = token.replace(TOKEN_PREFIX, "").trim();
+            if (token != null) {
 
-            // Faz a validacao do token do usuario e extrai o usuario de dentro
-            String user = Jwts.parser()
-                    .setSigningKey(SECRET)
-                    .parseClaimsJws(tokenLimpo)
-                    .getBody().getSubject(); // Admin ou Estevao
+                String tokenLimpo = token.replace(TOKEN_PREFIX, "").trim();
 
-            if (user != null) {
-                Usuario usuario = ApplicationContextLoad
-                        .getApplicationContext()
-                        .getBean(UsuarioRepository.class)
-                        .findUserByLogin(user); // faz a pesquisa no repository e retorna se tem o usuario dentro do banco mesmo
+                // Faz a validacao do token do usuario e extrai o usuario de dentro
+                String user = Jwts.parser()
+                        .setSigningKey(SECRET)
+                        .parseClaimsJws(tokenLimpo)
+                        .getBody().getSubject(); // Admin ou Estevao
 
-                if (usuario != null) { // se tem o usuario no banco retorna o usuario no response
-                    return new UsernamePasswordAuthenticationToken(
-                            usuario.getLogin(),
-                            usuario.getPassword(),
-                            usuario.getAuthorities());
+                if (user != null) {
+                    Usuario usuario = ApplicationContextLoad
+                            .getApplicationContext()
+                            .getBean(UsuarioRepository.class)
+                            .findUserByLogin(user); // faz a pesquisa no repository e retorna se tem o usuario dentro do banco mesmo
+
+                    if (usuario != null) { // se tem o usuario no banco retorna o usuario no response
+                        return new UsernamePasswordAuthenticationToken(
+                                usuario.getLogin(),
+                                usuario.getPassword(),
+                                usuario.getAuthorities());
+                    }
                 }
+
             }
 
+        } catch (SignatureException e) {
+            response.getWriter().write("Token inválido");
+
+        } catch (ExpiredJwtException e) {
+            response.getWriter().write("Token expirado, efetue o login novamente");
+
+        } finally {
+            liberacaoCors(response);
         }
 
         liberacaoCors(response);
