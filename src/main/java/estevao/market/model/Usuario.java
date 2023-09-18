@@ -26,7 +26,7 @@ public class Usuario implements UserDetails {
     private Date dataAtualSenha;
 
     //Aqui ele cria a tabela intermediaria entre usuarios e acessos (n -> n)
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "usuario_acesso",
             uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id", "acesso_id"}, name = "unique_acesso_user"),

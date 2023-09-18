@@ -37,7 +37,7 @@ public class JWTTokenAutenticacaoService {
         String JWT = Jwts.builder() // Chama o gerador de Token
                 .setSubject(username) // Adiciona o user
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME)) // Tempo de Expiração
-                .signWith(SignatureAlgorithm.ES512, SECRET).compact(); // tipo de assinatura usando como base o nosso SECRET
+                .signWith(SignatureAlgorithm.HS512, SECRET).compact(); // tipo de assinatura usando como base o nosso SECRET
 
         // Ex: Bearer asdasdafrfsdfsdfefga032r.23980hqwerqwberad5asd.239r42yr7qwergiqweADSF
         String token = TOKEN_PREFIX + " " + JWT;
