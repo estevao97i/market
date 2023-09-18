@@ -63,7 +63,7 @@ public class JWTTokenAutenticacaoService {
             // Faz a validacao do token do usuario e extrai o usuario de dentro
             String user = Jwts.parser()
                     .setSigningKey(SECRET)
-                    .parseClaimsJwt(tokenLimpo)
+                    .parseClaimsJws(tokenLimpo)
                     .getBody().getSubject(); // Admin ou Estevao
 
             if (user != null) {
