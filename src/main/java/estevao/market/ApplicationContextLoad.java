@@ -6,6 +6,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+
+// @Autowired as vezes não funciona (usamos essa classe pra não ter erro)
 @Component
 public class ApplicationContextLoad implements ApplicationContextAware {
 
