@@ -27,7 +27,6 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler {
 
         ObjectErrorDTO errorDTO = new ObjectErrorDTO();
 
-//        String message = "";
         StringBuilder str = new StringBuilder();
 
         if (ex instanceof MethodArgumentNotValidException) {

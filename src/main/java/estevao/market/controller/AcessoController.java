@@ -39,7 +39,7 @@ public class AcessoController {
         return new ResponseEntity<>(listAcesso, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/salvarAcesso")
+    @PostMapping(value = "**/salvarAcesso")
     public ResponseEntity<Acesso> salvar(@RequestBody Acesso acesso) {
 
         var acessoSalvo = service.salvar(acesso);
