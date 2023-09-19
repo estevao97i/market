@@ -1,6 +1,7 @@
 package estevao.market;
 
 import estevao.market.dto.ObjectErrorDTO;
+import estevao.market.exception.MarketException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +20,17 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ControleExcecoes extends ResponseEntityExceptionHandler {
+
+    // Capturando exceção customizada do sistema MarketException
+    @ExceptionHandler(MarketException.class)
+    public ResponseEntity<Object> handleExceptionCustom(MarketException e) {
+        ObjectErrorDTO obj = new ObjectErrorDTO();
+
+        obj.setError(e.getMessage());
+        obj.setCode(HttpStatus.OK.toString());
+
+        return new ResponseEntity<>(obj, HttpStatus.OK);
+    }
 
     // Captura exceções do projeto
     @ExceptionHandler({Exception.class, RuntimeException.class, Throwable.class})

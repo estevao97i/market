@@ -15,7 +15,7 @@ public class AcessoController {
     @Autowired
     private AcessoService service;
 
-    @GetMapping(value = "/listar-todos")
+    @GetMapping(value = "**/listarTodos")
     public ResponseEntity<List<Acesso>> listAll() {
 
         List<Acesso> acessos = service.listAll();
@@ -23,7 +23,7 @@ public class AcessoController {
         return new ResponseEntity<>(acessos, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "**/encontrarId/{id}")
     public ResponseEntity<Acesso> findById(@PathVariable("id") Long id) {
 
         Acesso acesso = service.findById(id);
@@ -31,7 +31,7 @@ public class AcessoController {
         return new ResponseEntity<>(acesso, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/buscarPorDesc/{desc}" )
+    @GetMapping(value = "**/buscarPorDesc/{desc}" )
     public ResponseEntity<List<Acesso>> buscarPorDesc(@PathVariable("desc") String desc) {
 
         List<Acesso> listAcesso = service.buscarPorDesc(desc);
@@ -47,7 +47,7 @@ public class AcessoController {
         return new ResponseEntity<>(acessoSalvo, HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "/deleteAcesso")
+    @DeleteMapping(value = "**/deleteAcesso")
     public ResponseEntity<?> delete(@RequestBody Acesso acesso) {
 
         service.deleteById(acesso.getId());
@@ -55,7 +55,7 @@ public class AcessoController {
         return new ResponseEntity("Acesso removido", HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/deleteAcesso/{id}")
+    @DeleteMapping(value = "**/deleteAcesso/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
 
         service.deleteById(id);
@@ -63,7 +63,7 @@ public class AcessoController {
         return new ResponseEntity("Acesso removido pelo id", HttpStatus.OK);
     }
 
-    @PutMapping(value = "/updateAcesso")
+    @PutMapping(value = "**/updateAcesso")
     public ResponseEntity<Acesso> update(@RequestBody Acesso acesso) {
 
         var acessoUpdate = service.update(acesso);

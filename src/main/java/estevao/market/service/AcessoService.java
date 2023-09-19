@@ -1,5 +1,6 @@
 package estevao.market.service;
 
+import estevao.market.exception.MarketException;
 import estevao.market.model.Acesso;
 import estevao.market.repository.AcessoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class AcessoService {
     }
 
     public Acesso findById(Long id) {
-         return repository.findById(id).get();
+         return repository.findById(id).orElseThrow(() -> new MarketException("id (" + id + ") não encontrado no sistema."));
     }
 
     public List<Acesso> buscarPorDesc(String desc) {
@@ -35,8 +36,7 @@ public class AcessoService {
     public Acesso update(Acesso acesso) {
          var acessoUpdate = repository.findById(acesso.getId()).get();
          acessoUpdate.setDescricao(acesso.getDescricao());
-         var acessoSalvo = repository.save(acessoUpdate);
 
-         return acessoSalvo;
+        return repository.save(acessoUpdate);
     }
 }
