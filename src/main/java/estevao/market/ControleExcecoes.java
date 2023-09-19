@@ -21,6 +21,7 @@ import java.util.List;
 @RestControllerAdvice
 public class ControleExcecoes extends ResponseEntityExceptionHandler {
 
+    // Tem que implementar essa exceção dentro do projeto
     // Capturando exceção customizada do sistema MarketException
     @ExceptionHandler(MarketException.class)
     public ResponseEntity<Object> handleExceptionCustom(MarketException e) {

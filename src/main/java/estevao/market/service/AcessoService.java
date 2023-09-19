@@ -15,6 +15,14 @@ public class AcessoService {
     private AcessoRepository repository;
 
     public Acesso salvar(Acesso acesso) {
+
+        if (acesso.getId() == null) {
+            var listaAcessosSalvosPorDesc = repository.buscarAcessoDesc(acesso.getDescricao().toUpperCase());
+            if (!listaAcessosSalvosPorDesc.isEmpty()) {
+                throw new MarketException("descrição já existente no sistema -> " + acesso.getDescricao());
+            }
+        }
+
         return repository.save(acesso);
     }
     public void deleteById(Long id) {
@@ -30,7 +38,7 @@ public class AcessoService {
     }
 
     public List<Acesso> buscarPorDesc(String desc) {
-         return repository.buscarAcessoDesc(desc);
+         return repository.buscarAcessoDesc(desc.toUpperCase());
     }
 
     public Acesso update(Acesso acesso) {
