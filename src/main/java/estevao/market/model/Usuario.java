@@ -50,6 +50,15 @@ public class Usuario implements UserDetails {
         return this.acessos;
     }
 
+
+    public Pessoa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Pessoa empresa) {
+        this.empresa = empresa;
+    }
+
     @Override
     public String getPassword() {
         return this.senha;

@@ -18,6 +18,9 @@ public class PessoaController {
     @Autowired
     PessoaRepository repository;
 
+    @Autowired
+    PessoaUserService service;
+
     @PostMapping(value = "**/SalvarPessoaJuridica")
     public ResponseEntity<PessoaJuridica> salvarPj(@RequestBody PessoaJuridica pessoaJuridica) throws MarketException {
 
@@ -28,6 +31,8 @@ public class PessoaController {
         if (pessoaJuridica.getId() == null && repository.existeCnpjCadastrado(pessoaJuridica.getCnpj()) > 0) {
             throw new MarketException("CNPJ já cadastrado -> " + pessoaJuridica.getCnpj());
         }
+
+        service.salvarPj(pessoaJuridica);
 
         return new ResponseEntity<>(pessoaJuridica, HttpStatus.OK);
     }

@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 
+import java.util.Calendar;
+
 @Profile("test")
 @SpringBootTest(classes = MarketApplication.class)
 public class TestePessoaUsuario extends TestCase {
@@ -23,7 +25,7 @@ public class TestePessoaUsuario extends TestCase {
     public void testCadastraPessoa() throws MarketException {
 
         PessoaJuridica pessoaJuridica = new PessoaJuridica();
-        pessoaJuridica.setCnpj("684653132112");
+        pessoaJuridica.setCnpj("" + Calendar.getInstance().getTimeInMillis());
         pessoaJuridica.setInscEstadual("1");
         pessoaJuridica.setInscMunicipal("2");
         pessoaJuridica.setNomeFantasia("23423423");
