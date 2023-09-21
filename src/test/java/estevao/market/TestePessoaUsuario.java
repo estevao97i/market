@@ -1,5 +1,7 @@
 package estevao.market;
 
+import estevao.market.controller.PessoaController;
+import estevao.market.exception.MarketException;
 import estevao.market.model.PessoaFisica;
 import estevao.market.model.PessoaJuridica;
 import estevao.market.repository.PessoaRepository;
@@ -15,13 +17,10 @@ import org.springframework.context.annotation.Profile;
 public class TestePessoaUsuario extends TestCase {
 
     @Autowired
-    private PessoaUserService pessoaUserService;
-
-    @Autowired
-    private PessoaRepository pessoaRepository;
+    private PessoaController pessoaController;
 
     @Test
-    public void testCadastraPessoa() {
+    public void testCadastraPessoa() throws MarketException {
 
         PessoaJuridica pessoaJuridica = new PessoaJuridica();
         pessoaJuridica.setCnpj("684653132112");
@@ -33,14 +32,7 @@ public class TestePessoaUsuario extends TestCase {
         pessoaJuridica.setEmail("asdadsad@asdasda.com");
         pessoaJuridica.setTelefone("87797564687");
 
-        pessoaRepository.save(pessoaJuridica);
-
-//        PessoaFisica pessoaFisica = new PessoaFisica();
-//        pessoaFisica.setCpf("684653132112");
-//        pessoaFisica.setNome("estevao");
-//        pessoaFisica.setEmail("asdadsad@asdasda.com");
-//        pessoaFisica.setTelefone("87797564687");
-//        pessoaFisica.setEmpresa(pessoaJuridica);
+        pessoaController.salvarPj(pessoaJuridica);
 
     }
 
