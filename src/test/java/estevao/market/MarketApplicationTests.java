@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Profile("test")
@@ -39,7 +40,7 @@ class MarketApplicationTests extends TestCase {
 		MockMvc mockMvc = builder.build();
 
 		Acesso acesso = new Acesso();
-		acesso.setDescricao("ROLE_TESTE_BUILDER");
+		acesso.setDescricao("ROLE_TESTE_BUILDER" + Calendar.getInstance().getTimeInMillis());
 
 		ObjectMapper obj = new ObjectMapper();
 
@@ -78,7 +79,9 @@ class MarketApplicationTests extends TestCase {
 		assertEquals("Acesso removido", retornoApi.andReturn().getResponse().getContentAsString());
 		assertEquals(200, retornoApi.andReturn().getResponse().getStatus());
 
-		repository.deleteById(acessoSalvo.getId());
+		var listAll = repository.findAll();
+		repository.deleteById(listAll.get(listAll.size() - 1).getId());
+
 	}
 
 	@Test
@@ -104,7 +107,9 @@ class MarketApplicationTests extends TestCase {
 		assertEquals("Acesso removido pelo id", retornoApi.andReturn().getResponse().getContentAsString());
 		assertEquals(200, retornoApi.andReturn().getResponse().getStatus());
 
-		repository.deleteById(acessoSalvo.getId());
+		var listAll = repository.findAll();
+
+		repository.deleteById(listAll.get(listAll.size() -1).getId());
 	}
 
 	@Test
@@ -119,7 +124,7 @@ class MarketApplicationTests extends TestCase {
 		ObjectMapper obj = new ObjectMapper();
 
 		ResultActions retornoApi = mockMvc
-				.perform(MockMvcRequestBuilders.get("/" + acessoSalvo.getId())
+				.perform(MockMvcRequestBuilders.get("/encontrarId/" + acessoSalvo.getId())
 						.content(obj.writeValueAsString(acessoSalvo))
 						.accept(MediaType.APPLICATION_JSON)
 						.contentType(MediaType.APPLICATION_JSON));
@@ -132,6 +137,7 @@ class MarketApplicationTests extends TestCase {
 		assertEquals(objAcesso, acessoSalvo);
 
 		repository.deleteById(acessoSalvo.getId());
+
 	}
 
 	@Test
@@ -175,7 +181,7 @@ class MarketApplicationTests extends TestCase {
 		ObjectMapper obj = new ObjectMapper();
 
 		ResultActions retornoApi = mockMvc
-				.perform(MockMvcRequestBuilders.get("/listar-todos")
+				.perform(MockMvcRequestBuilders.get("/listarTodos")
 						.accept(MediaType.APPLICATION_JSON)
 						.contentType(MediaType.APPLICATION_JSON));
 
@@ -198,13 +204,14 @@ class MarketApplicationTests extends TestCase {
 
 		// teste de salvar na camada de Resource
 		var acesso = new Acesso();
-		acesso.setDescricao("ROLE_ADMIN");
+		var time = Calendar.getInstance().getTimeInMillis();
+		acesso.setDescricao("ROLE_ADMIN"  + time);
 
 		var acessoSalvo = controller.salvar(acesso).getBody();
 
 		assert acessoSalvo != null;
 		assertTrue(acessoSalvo.getId() > 0);
-		assertEquals("ROLE_ADMIN", acessoSalvo.getDescricao());
+		assertEquals("ROLE_ADMIN" + time, acessoSalvo.getDescricao());
 
 	}
 
