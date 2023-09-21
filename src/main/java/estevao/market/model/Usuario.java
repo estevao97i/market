@@ -40,6 +40,10 @@ public class Usuario implements UserDetails {
     @JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
     private Pessoa pessoa;
 
+    @ManyToOne(targetEntity = Pessoa.class)
+    @JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    private Pessoa empresa;
+
     // Autoridades = são os acessos/roles -> ROLE_ADMIN, ROLE_SECRETARIO
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
