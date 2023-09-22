@@ -61,7 +61,16 @@ public class TestePessoaUsuario extends TestCase {
         pessoaJuridica.getEnderecos().add(endereco1);
         pessoaJuridica.getEnderecos().add(endereco2);
 
-        pessoaController.salvarPj(pessoaJuridica);
+        pessoaJuridica = pessoaController.salvarPj(pessoaJuridica).getBody();
+
+        assert pessoaJuridica != null;
+        assertTrue(pessoaJuridica.getId() > 0);
+
+        for (Endereco endereco: pessoaJuridica.getEnderecos()) {
+            assertTrue(endereco.getId() > 0);
+        }
+
+        assertEquals(2, pessoaJuridica.getEnderecos().size());
 
     }
 
