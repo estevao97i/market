@@ -1,7 +1,9 @@
 package estevao.market;
 
 import estevao.market.controller.PessoaController;
+import estevao.market.enums.TipoEndereco;
 import estevao.market.exception.MarketException;
+import estevao.market.model.Endereco;
 import estevao.market.model.PessoaJuridica;
 import junit.framework.TestCase;
 import org.junit.jupiter.api.Test;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 @Profile("test")
@@ -21,6 +25,7 @@ public class TestePessoaUsuario extends TestCase {
     @Test
     public void testCadastraPessoa() throws MarketException {
 
+
         PessoaJuridica pessoaJuridica = new PessoaJuridica();
         pessoaJuridica.setCnpj("" + Calendar.getInstance().getTimeInMillis());
         pessoaJuridica.setInscEstadual("1");
@@ -31,7 +36,30 @@ public class TestePessoaUsuario extends TestCase {
         pessoaJuridica.setEmail("testeSalvarPJ@gmail.com");
         pessoaJuridica.setTelefone("87797564687");
 
-//        ApplicationContextLoad.getApplicationContext().getBean(PessoaUserService.class).salvarPj(pessoaJuridica);
+        Endereco endereco1 = new Endereco();
+        endereco1.setRuaLogra("123");
+        endereco1.setCep("123123123");
+        endereco1.setNumero("333222");
+        endereco1.setBairro("centro");
+        endereco1.setUf("DF");
+        endereco1.setCidade("taguabas");
+        endereco1.setEmpresa(pessoaJuridica);
+        endereco1.setPessoa(pessoaJuridica);
+        endereco1.setTipoEndereco(TipoEndereco.COBRANCA);
+
+        Endereco endereco2 = new Endereco();
+        endereco2.setRuaLogra("1234");
+        endereco2.setCep("1231231234");
+        endereco2.setNumero("3332224");
+        endereco2.setBairro("centro 1");
+        endereco2.setUf("DF1");
+        endereco2.setCidade("taguabas1");
+        endereco2.setEmpresa(pessoaJuridica);
+        endereco2.setPessoa(pessoaJuridica);
+        endereco2.setTipoEndereco(TipoEndereco.ENTREGA);
+
+        pessoaJuridica.getEnderecos().add(endereco1);
+        pessoaJuridica.getEnderecos().add(endereco2);
 
         pessoaController.salvarPj(pessoaJuridica);
 
