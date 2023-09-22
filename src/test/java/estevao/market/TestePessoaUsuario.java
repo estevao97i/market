@@ -28,7 +28,7 @@ public class TestePessoaUsuario extends TestCase {
         pessoaJuridica.setNomeFantasia("23423423");
         pessoaJuridica.setRazaoSocial("23423423asd");
         pessoaJuridica.setNome("estevao");
-        pessoaJuridica.setEmail("asdadsad@asdasda.com");
+        pessoaJuridica.setEmail("testeSalvarPJ@gmail.com");
         pessoaJuridica.setTelefone("87797564687");
 
 //        ApplicationContextLoad.getApplicationContext().getBean(PessoaUserService.class).salvarPj(pessoaJuridica);

@@ -7,6 +7,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -47,7 +48,9 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler {
             for (ObjectError obj: list) {
                 str.append(obj.getDefaultMessage()).append("\n");
             }
-        } else {
+        } if (ex instanceof HttpMessageNotReadableException) {
+            str.append("Corpo da requisição faltando");
+        }else {
             str.append(ex.getMessage());
         }
 

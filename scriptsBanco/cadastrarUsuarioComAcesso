@@ -1,0 +1,7 @@
+INSERT INTO public.usuario
+(id, data_atual_senha, login, senha, pessoa_id, empresa_id)
+VALUES(1, '2023-09-17', 'estevao', '$2a$10$XjDGQCfq2/VzfruuJ.idPui3cAqN601sha4xrrrq1KiCXntI.rsUq', 1, 1);
+
+localhost:8080/loja_virtual/login
+
+{"login":"estevao","senha":"123"}
