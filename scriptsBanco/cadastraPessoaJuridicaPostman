@@ -12,3 +12,27 @@
 }
 
 localhost:8080/loja_virtual/SalvarPessoaJuridica
+
+COM ENDEREÇO:
+
+{
+    "cnpj": "83123123121",
+    "nome": "teste_salva_cnpj",
+    "email": "tes_p1212j@Gmail.com",
+    "telefone": "687465416351",
+    "inscEstadual": "8645464",
+    "inscMunicipal": "46546",
+    "nomeFantasia": "aaa",
+    "razaoSocial": "123asdasd",
+    "tipoPessoa": "JURIDICA",
+    "categoria": "Something",
+    "enderecos": [{
+        "ruaLogra": "123",
+        "cep": "123123123",
+        "numero": "333222",
+        "bairro": "centro",
+        "uf": "DF",
+        "cidade": "taguabas",
+        "tipoEndereco": "1"
+    }]
+}
