@@ -1,0 +1,14 @@
+{
+    "cnpj": "87654631321",
+    "nome": "teste_salva_cnpj",
+    "email": "teste_salva_pj@Gmail.com",
+    "telefone": "687465416351",
+    "inscEstadual": "8645464",
+    "inscMunicipal": "46546",
+    "nomeFantasia": "aaa",
+    "razaoSocial": "123asdasd",
+    "tipoPessoa": "JURIDICA",
+    "categoria": "Something"
+}
+
+localhost:8080/loja_virtual/SalvarPessoaJuridica
