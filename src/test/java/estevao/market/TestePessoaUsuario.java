@@ -2,10 +2,7 @@ package estevao.market;
 
 import estevao.market.controller.PessoaController;
 import estevao.market.exception.MarketException;
-import estevao.market.model.PessoaFisica;
 import estevao.market.model.PessoaJuridica;
-import estevao.market.repository.PessoaRepository;
-import estevao.market.service.PessoaUserService;
 import junit.framework.TestCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +30,8 @@ public class TestePessoaUsuario extends TestCase {
         pessoaJuridica.setNome("estevao");
         pessoaJuridica.setEmail("asdadsad@asdasda.com");
         pessoaJuridica.setTelefone("87797564687");
+
+//        ApplicationContextLoad.getApplicationContext().getBean(PessoaUserService.class).salvarPj(pessoaJuridica);
 
         pessoaController.salvarPj(pessoaJuridica);
 

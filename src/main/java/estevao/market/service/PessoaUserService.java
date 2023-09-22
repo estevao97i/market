@@ -6,15 +6,17 @@ import estevao.market.model.Usuario;
 import estevao.market.repository.PessoaRepository;
 import estevao.market.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Calendar;
-import java.util.List;
 
 @Service
+@Transactional
+@Component
 public class PessoaUserService {
 
     @Autowired
