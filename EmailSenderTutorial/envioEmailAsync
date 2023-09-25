@@ -1,0 +1,28 @@
+add dependencia no pom:
+
+<dependency>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>javax.mail</artifactId>
+    <version>1.6.2</version>
+</dependency>
+
+add no main do entrypoint:
+
+@EnableAsync (cabeçalho da classe)
+
+(corpo da classe)
+@Override
+@Bean
+public Executor getAsyncExecutor() {
+    ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+    executor.setCorePoolSize(10);
+    executor.setMaxPoolSize(20);
+    executor.setQueueCapacity(500);
+    executor.setCorePoolSize(10);
+    executor.setThreadNamePrefix("Assyncronous Thread");
+    executor.initialize();
+    return executor;
+}
+
+entrar nesse link:
+https://www.google.com/settings/security/lesssecureapps
