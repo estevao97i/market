@@ -15,7 +15,7 @@ import java.util.Properties;
 public class SendServiceEmail {
 
     private String userName = "@gmail.com";
-    private String senha = "********";
+    private String senha = "**********";
 
     @Async
     public void enviarEmailHtml(String assunto, String mensagem, String emailDestino) throws MessagingException, UnsupportedEncodingException {
