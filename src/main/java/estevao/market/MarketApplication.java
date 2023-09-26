@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -19,6 +20,7 @@ import java.util.concurrent.Executor;
 @ComponentScan(basePackages = {"estevao.*"}) // enxergar todos os pacotes como componentes
 @EnableJpaRepositories(basePackages = {"estevao.market.repository"}) // enxergar as interfaces de repository
 @EnableTransactionManagement
+@EnableScheduling // possibilitar tarefas agendadas
 public class MarketApplication implements AsyncConfigurer {
 	public static void main(String[] args) {
 //		System.out.println(new BCryptPasswordEncoder().encode("123"));

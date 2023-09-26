@@ -1,6 +1,7 @@
 package estevao.market.service;
 
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import estevao.market.exception.MarketException;
 import estevao.market.model.PessoaJuridica;
 import estevao.market.model.Usuario;
 import estevao.market.repository.PessoaRepository;
@@ -27,6 +28,9 @@ public class PessoaUserService {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private SendServiceEmail sendServiceEmail;
 
     public PessoaJuridica salvarPj(PessoaJuridica juridica) {
 
@@ -58,6 +62,21 @@ public class PessoaUserService {
             usuarioPj = usuarioRepository.save(usuarioPj);
 
             usuarioRepository.insereAcessoUserPj(usuarioPj.getId());
+            usuarioRepository.insereAcessoUserPj(usuarioPj.getId(), "ROLE_ADMIN");
+
+            StringBuilder messageHtml = new StringBuilder();
+
+            messageHtml.append("<b>Segue abaixo seus dados de acesso para a loja virtual</b>");
+            messageHtml.append("<b>Login: </b>"+juridica.getEmail()+"<br/>");
+            messageHtml.append("<b>Senha </b>").append(senha).append("<br/>");
+            messageHtml.append("<br/><br/> Obrigado!");
+
+            try {
+                sendServiceEmail.enviarEmailHtml("Acesso gerado para loja virtual", messageHtml.toString(), juridica.getEmail());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
         }
         return juridica;

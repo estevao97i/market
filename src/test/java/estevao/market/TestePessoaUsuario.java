@@ -32,8 +32,8 @@ public class TestePessoaUsuario extends TestCase {
         pessoaJuridica.setInscMunicipal("2");
         pessoaJuridica.setNomeFantasia("23423423");
         pessoaJuridica.setRazaoSocial("23423423asd");
-        pessoaJuridica.setNome("estevao");
-        pessoaJuridica.setEmail("testeSalvarPJ@gmail.com");
+        pessoaJuridica.setNome("estevao2");
+        pessoaJuridica.setEmail("testeSalvasertdsarPJ@gmail.com");
         pessoaJuridica.setTelefone("87797564687");
 
         Endereco endereco1 = new Endereco();

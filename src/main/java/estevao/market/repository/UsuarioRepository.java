@@ -8,6 +8,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.Date;
+import java.util.List;
 
 @Repository
 public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
@@ -28,6 +30,15 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
     @Transactional
     @Modifying
     @Query(nativeQuery = true, value = " insert into usuario_acesso(usuario_id, acesso_id) values (:id, " +
-            "(select id from acesso where descricao = 'ROLE_USER' ))")
+            "(select id from acesso where descricao = 'ROLE_USER'))")
     void insereAcessoUserPj(Long id);
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true, value = " insert into usuario_acesso(usuario_id, acesso_id) values (:id, " +
+            "(select id from acesso where descricao = :role limit 1))")
+    void insereAcessoUserPj(Long id, String role);
+
+    @Query(" select * from Usuario u where u.dataAtualSenha <= current_date - 90 ")
+    List<Usuario> listaUsuariosMaior90Dias();
 }
