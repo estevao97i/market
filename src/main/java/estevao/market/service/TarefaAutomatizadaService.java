@@ -29,6 +29,7 @@ public class TarefaAutomatizadaService {
 
             try {
                 sendServiceEmail.enviarEmailHtml("Senha expirada", messageHtml.toString(), usuario.getPessoa().getEmail());
+                Thread.sleep(3000);
             } catch (Exception e) {
                 e.printStackTrace();
             }
