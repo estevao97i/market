@@ -18,7 +18,7 @@ public class TarefaAutomatizadaService {
     private SendServiceEmail sendServiceEmail;
 
     // @Scheduled(initialDelay = 2000, fixedDelay = 86400000) // subiu projeto ele roda em 2seg - roda a cada 24h
-    @Scheduled(cron = "0 0 11 * * * *", zone = "America/Sao_Paulo") // vai rodar tod dia as 11h da manha
+    @Scheduled(cron = "0 0 11 * * * ", zone = "America/Sao_Paulo") // vai rodar tod dia as 11h da manha
     public void notificarUserTrocaSenha() {
         List<Usuario> usuariosSenhasVencidas = this.usuarioRepository.listaUsuariosMaior90Dias();
 

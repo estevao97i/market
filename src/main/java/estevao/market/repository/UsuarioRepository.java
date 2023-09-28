@@ -39,6 +39,6 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
             "(select id from acesso where descricao = :role limit 1))")
     void insereAcessoUserPj(Long id, String role);
 
-    @Query(" select * from Usuario u where u.dataAtualSenha <= current_date - 90 ")
+    @Query(" select u from Usuario u where u.dataAtualSenha <= current_date - 90 ")
     List<Usuario> listaUsuariosMaior90Dias();
 }
