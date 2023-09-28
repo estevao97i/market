@@ -32,6 +32,10 @@ public class PessoaController {
             throw new MarketException("CNPJ já cadastrado -> " + pessoaJuridica.getCnpj());
         }
 
+        if (pessoaJuridica.getId() == null && repository.existeInsEstadualCadastrado(pessoaJuridica.getInscEstadual()) > 0) {
+            throw new MarketException("Inscrição Estadual já cadastrada -> " + pessoaJuridica.getInscEstadual());
+        }
+
         service.salvarPj(pessoaJuridica);
 
         return new ResponseEntity<>(pessoaJuridica, HttpStatus.OK);

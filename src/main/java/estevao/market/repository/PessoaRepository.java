@@ -10,4 +10,7 @@ public interface PessoaRepository extends CrudRepository<PessoaJuridica, Long> {
 
     @Query("select count(p) from Pessoa p where p.cnpj = :cnpj")
     public Integer existeCnpjCadastrado(String cnpj);
+
+    @Query("select count(p) from Pessoa p where p.inscEstadual = :cnpj")
+    public Integer existeInsEstadualCadastrado(String inscEstadual);
 }
