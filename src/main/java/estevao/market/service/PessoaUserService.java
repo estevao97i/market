@@ -1,11 +1,10 @@
 package estevao.market.service;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
-import estevao.market.exception.MarketException;
 import estevao.market.model.PessoaJuridica;
 import estevao.market.model.Usuario;
 import estevao.market.repository.PessoaRepository;
 import estevao.market.repository.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,19 +17,16 @@ import java.util.Calendar;
 @Service
 @Transactional
 @Component
+@RequiredArgsConstructor
 public class PessoaUserService {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private PessoaRepository pessoaRepository;
+    private final PessoaRepository pessoaRepository;
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    private SendServiceEmail sendServiceEmail;
+    private final SendServiceEmail sendServiceEmail;
 
     public PessoaJuridica salvarPj(PessoaJuridica juridica) {
 
@@ -81,6 +77,8 @@ public class PessoaUserService {
         }
         return juridica;
     }
+
+
 
 
 }

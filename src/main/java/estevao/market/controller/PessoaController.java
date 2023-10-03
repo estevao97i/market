@@ -4,7 +4,7 @@ import estevao.market.exception.MarketException;
 import estevao.market.model.PessoaJuridica;
 import estevao.market.repository.PessoaRepository;
 import estevao.market.service.PessoaUserService;
-import lombok.val;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class PessoaController {
 
-    @Autowired
-    PessoaRepository repository;
-
-    @Autowired
-    PessoaUserService service;
+    private final PessoaRepository repository;
+    private final PessoaUserService service;
 
     @PostMapping(value = "**/SalvarPessoaJuridica")
     public ResponseEntity<PessoaJuridica> salvarPj(@RequestBody PessoaJuridica pessoaJuridica) throws MarketException {
