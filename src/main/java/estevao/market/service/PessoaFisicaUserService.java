@@ -54,7 +54,7 @@ public class PessoaFisicaUserService {
             usuarioPf.setSenha(senhaCriptografada);
             usuarioPf = usuarioRepository.save(usuarioPf);
 
-            usuarioRepository.insereAcessoUserPj(usuarioPf.getId());
+            usuarioRepository.insereAcessoUser(usuarioPf.getId());
 
             StringBuilder messageHtml = new StringBuilder();
 

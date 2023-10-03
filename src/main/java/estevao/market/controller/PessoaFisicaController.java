@@ -29,7 +29,7 @@ public class PessoaFisicaController {
         }
 
         if (pessoaFisica.getId() == null && pessoaRepository.existeCpfCadastrado(pessoaFisica.getCpf()) > 0) {
-            throw new MarketException("CNPJ já cadastrado -> " + pessoaFisica.getCpf());
+            throw new MarketException("CPF já cadastrado -> " + pessoaFisica.getCpf());
         }
 
         pessoaService.salvarPf(pessoaFisica);
