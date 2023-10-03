@@ -5,6 +5,7 @@ import estevao.market.enums.TipoEndereco;
 import estevao.market.exception.MarketException;
 import estevao.market.model.Endereco;
 import estevao.market.model.PessoaJuridica;
+import estevao.market.utils.ValidateCnpj;
 import junit.framework.TestCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 
 import java.util.Calendar;
+
+import static estevao.market.utils.ValidateCnpj.isCNPJ;
 
 @Profile("test")
 @SpringBootTest(classes = MarketApplication.class)
@@ -70,6 +73,13 @@ public class TestePessoaUsuario extends TestCase {
 
         assertEquals(2, pessoaJuridica.getEnderecos().size());
 
+    }
+
+    @Test
+    public void isCnpjValido() {
+        boolean isValido = ValidateCnpj.isCNPJ("34234234234");
+
+        assertFalse(isValido);
     }
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PessoaController {
 
     private final PessoaRepository repository;
+
     private final PessoaUserService service;
 
     @PostMapping(value = "**/SalvarPessoaJuridica")
