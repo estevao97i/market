@@ -77,9 +77,9 @@ public class TestePessoaUsuario extends TestCase {
 
     @Test
     public void isCnpjValido() {
-        boolean isValido = ValidateCnpj.isCNPJ("34234234234");
+        boolean isValido = ValidateCnpj.isCNPJ("40.371.699/0001-10");
 
-        assertFalse(isValido);
+        assertTrue(isValido);
     }
 
 }
