@@ -72,8 +72,6 @@ public class PessoaUserService {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
         }
         return juridica;
     }

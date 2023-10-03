@@ -25,7 +25,7 @@ public class PessoaFisicaUserService {
 
     private final SendServiceEmail sendServiceEmail;
 
-    public PessoaFisica salvarPj(PessoaFisica fisica) {
+    public PessoaFisica salvarPf(PessoaFisica fisica) {
 
         for (int i = 0; i < fisica.getEnderecos().size(); i++) {
             fisica.getEnderecos().get(i).setPessoa(fisica);
@@ -59,7 +59,7 @@ public class PessoaFisicaUserService {
             StringBuilder messageHtml = new StringBuilder();
 
             messageHtml.append("<b>Segue abaixo seus dados de acesso para a loja virtual</b>");
-            messageHtml.append("<b>Login: </b>"+fisica.getEmail()+"<br/>");
+            messageHtml.append("<b>Login: </b>" + fisica.getEmail() + "<br/>");
             messageHtml.append("<b>Senha </b>").append(senha).append("<br/>");
             messageHtml.append("<br/><br/> Obrigado!");
 
@@ -68,8 +68,6 @@ public class PessoaFisicaUserService {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
         }
         return fisica;
     }

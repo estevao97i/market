@@ -4,8 +4,8 @@ import estevao.market.exception.MarketException;
 import estevao.market.model.PessoaJuridica;
 import estevao.market.repository.PessoaRepository;
 import estevao.market.service.PessoaUserService;
+import estevao.market.utils.ValidateCnpj;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +33,10 @@ public class PessoaController {
 
         if (pessoaJuridica.getId() == null && repository.existeInsEstadualCadastrado(pessoaJuridica.getInscEstadual()) > 0) {
             throw new MarketException("Inscrição Estadual já cadastrada -> " + pessoaJuridica.getInscEstadual());
+        }
+
+        if (!ValidateCnpj.isCNPJ(pessoaJuridica.getCnpj())) {
+            throw new MarketException("CNPJ inválido -> " + pessoaJuridica.getCnpj());
         }
 
         service.salvarPj(pessoaJuridica);
