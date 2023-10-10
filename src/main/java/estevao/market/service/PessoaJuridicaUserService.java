@@ -2,10 +2,9 @@ package estevao.market.service;
 
 import estevao.market.model.PessoaJuridica;
 import estevao.market.model.Usuario;
-import estevao.market.repository.PessoaRepository;
+import estevao.market.repository.PessoaJuridicaRepository;
 import estevao.market.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -18,11 +17,11 @@ import java.util.Calendar;
 @Transactional
 @Component
 @RequiredArgsConstructor
-public class PessoaUserService {
+public class PessoaJuridicaUserService {
 
     private final UsuarioRepository usuarioRepository;
 
-    private final PessoaRepository pessoaRepository;
+    private final PessoaJuridicaRepository pessoaRepository;
 
     private final JdbcTemplate jdbcTemplate;
 
