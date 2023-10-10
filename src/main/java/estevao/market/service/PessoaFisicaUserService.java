@@ -29,7 +29,7 @@ public class PessoaFisicaUserService {
 
         for (int i = 0; i < fisica.getEnderecos().size(); i++) {
             fisica.getEnderecos().get(i).setPessoa(fisica);
-            fisica.getEnderecos().get(i).setEmpresa(fisica);
+//            fisica.getEnderecos().get(i).setEmpresa(fisica);
         }
 
         fisica = pessoaRepository.save(fisica);
@@ -45,7 +45,7 @@ public class PessoaFisicaUserService {
 
             usuarioPf = new Usuario();
             usuarioPf.setDataAtualSenha(Calendar.getInstance().getTime());
-            usuarioPf.setEmpresa(fisica);
+            usuarioPf.setEmpresa(fisica.getEmpresa());
             usuarioPf.setPessoa(fisica);
             usuarioPf.setLogin(fisica.getEmail());
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PessoaFisicaRepository extends JpaRepository<PessoaFisica, Long> {
 
-    @Query(" Select count(p) from Pessoa p where p.cpf = :cpf ")
+    @Query(" Select count(p) from PessoaFisica p where p.cpf = :cpf ")
     Integer existeCpfCadastrado(String cpf);
 
 }

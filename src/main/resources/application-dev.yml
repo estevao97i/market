@@ -37,7 +37,7 @@ spring:
       hibernate:
         jdbc:
           # gargalo caso tenha muitas requisições sql
-          batch_size: 4
+          batch_size: 2
         order_inserts: true
         order_updates: true
 #        mostra os dados do sql no log

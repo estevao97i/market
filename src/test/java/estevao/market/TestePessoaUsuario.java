@@ -7,6 +7,7 @@ import estevao.market.exception.MarketException;
 import estevao.market.model.Endereco;
 import estevao.market.model.PessoaFisica;
 import estevao.market.model.PessoaJuridica;
+import estevao.market.repository.PessoaJuridicaRepository;
 import estevao.market.utils.ValidateCnpj;
 import estevao.market.utils.ValidateCpf;
 import junit.framework.TestCase;
@@ -27,6 +28,9 @@ public class TestePessoaUsuario extends TestCase {
 
     @Autowired
     private PessoaFisicaController pessoaFisicaController;
+
+    @Autowired
+    private PessoaJuridicaRepository pessoaJuridicaRepository;
 
     @Test
     public void testCadastraPessoaJuridica() throws MarketException {
@@ -82,11 +86,14 @@ public class TestePessoaUsuario extends TestCase {
     @Test
     public void testCadastraPessoaFisica() throws MarketException {
 
+        PessoaJuridica pessoaJuridica = pessoaJuridicaRepository.existeCnpjCadastradoReturnObj("684653132112");
+
         PessoaFisica pessoaFisica = new PessoaFisica();
         pessoaFisica.setCpf("135.771.730-09");
         pessoaFisica.setNome("estevao cpf");
         pessoaFisica.setEmail("testeSalvaPF@gmail.com");
         pessoaFisica.setTelefone("87797564687");
+        pessoaFisica.setEmpresa(pessoaJuridica);
 
         Endereco endereco1 = new Endereco();
         endereco1.setRuaLogra("123");
@@ -95,7 +102,7 @@ public class TestePessoaUsuario extends TestCase {
         endereco1.setBairro("centro");
         endereco1.setUf("DF");
         endereco1.setCidade("taguabas");
-        endereco1.setEmpresa(pessoaFisica);
+        endereco1.setEmpresa(pessoaJuridica);
         endereco1.setPessoa(pessoaFisica);
         endereco1.setTipoEndereco(TipoEndereco.COBRANCA);
 
@@ -106,7 +113,7 @@ public class TestePessoaUsuario extends TestCase {
         endereco2.setBairro("centro 1");
         endereco2.setUf("DF1");
         endereco2.setCidade("taguabas1");
-        endereco2.setEmpresa(pessoaFisica);
+        endereco2.setEmpresa(pessoaJuridica);
         endereco2.setPessoa(pessoaFisica);
         endereco2.setTipoEndereco(TipoEndereco.ENTREGA);
 
