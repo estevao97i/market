@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 public class PessoaFisicaController {
@@ -22,7 +24,7 @@ public class PessoaFisicaController {
     private final PessoaFisicaRepository pessoaRepository;
 
     @PostMapping("**/salvarPf")
-    public ResponseEntity<PessoaFisica> inserePf(@RequestBody PessoaFisica pessoaFisica) {
+    public ResponseEntity<PessoaFisica> inserePf(@RequestBody @Valid PessoaFisica pessoaFisica) {
 
         if (!ValidateCpf.isCPF(pessoaFisica.getCpf())) {
             throw new MarketException("CPF inválido -> " + pessoaFisica.getCpf());

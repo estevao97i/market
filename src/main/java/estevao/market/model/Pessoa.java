@@ -1,6 +1,8 @@
 package estevao.market.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ public abstract class Pessoa implements Serializable {
     // FetchType.LAZY = só vai carregar os endereços quando fizer um getEndereco
     private List<Endereco> enderecos = new ArrayList<>();
 
+    @NotBlank(message = "Nome deve ser informado")
+    @NotNull(message = "Nome deve ser informado")
     @Column(nullable = false)
     private String nome;
     @Column(nullable = false)

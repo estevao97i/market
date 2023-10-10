@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 public class PessoaJuridicaController {
@@ -21,7 +23,7 @@ public class PessoaJuridicaController {
     private final PessoaJuridicaUserService service;
 
     @PostMapping(value = "**/SalvarPessoaJuridica")
-    public ResponseEntity<PessoaJuridica> salvarPj(@RequestBody PessoaJuridica pessoaJuridica) throws MarketException {
+    public ResponseEntity<PessoaJuridica> salvarPj(@RequestBody @Valid PessoaJuridica pessoaJuridica) throws MarketException {
 
         if (pessoaJuridica == null) {
             throw new MarketException("Não foi possível salvar. Pessoa Jurídica -> NULL");
