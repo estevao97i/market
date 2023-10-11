@@ -1,5 +1,6 @@
 package estevao.market.service;
 
+import estevao.market.dto.CepDTO;
 import estevao.market.model.PessoaJuridica;
 import estevao.market.model.Usuario;
 import estevao.market.repository.PessoaJuridicaRepository;
@@ -9,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
 import java.util.Calendar;
@@ -75,7 +77,9 @@ public class PessoaJuridicaUserService {
         return juridica;
     }
 
-
+    public CepDTO consultaCep(String cep) {
+        return new RestTemplate().getForEntity("https://viacep.com.br/ws/"+ cep +"/json/", CepDTO.class).getBody();
+    }
 
 
 }

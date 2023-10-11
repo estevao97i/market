@@ -1,6 +1,9 @@
 package estevao.market.controller;
 
+import estevao.market.dto.CepDTO;
+import estevao.market.enums.TipoEndereco;
 import estevao.market.exception.MarketException;
+import estevao.market.model.Endereco;
 import estevao.market.model.PessoaJuridica;
 import estevao.market.repository.PessoaJuridicaRepository;
 import estevao.market.service.PessoaJuridicaUserService;
@@ -8,9 +11,7 @@ import estevao.market.utils.ValidateCnpj;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -41,8 +42,21 @@ public class PessoaJuridicaController {
             throw new MarketException("CNPJ inválido -> " + pessoaJuridica.getCnpj());
         }
 
+        if (pessoaJuridica.getId() == null || pessoaJuridica.getId() <= 0) {
+            for (int p = 0; p < pessoaJuridica.getEnderecos().size(); p++) {
+                var enderecoPorCep = this.buscaPorCep(pessoaJuridica.getEnderecos().get(p).getCep());
+            }
+
+        }
+
         service.salvarPj(pessoaJuridica);
 
         return new ResponseEntity<>(pessoaJuridica, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "consultaCep/{cep}")
+    public ResponseEntity<CepDTO> buscaPorCep(@PathVariable("cep") String cep) {
+        var cepBuscado = service.consultaCep(cep);
+        return ResponseEntity.ok(cepBuscado);
     }
 }
