@@ -53,7 +53,18 @@ public class PessoaJuridicaController {
                 pessoaJuridica.getEnderecos().get(p).setRuaLogra(enderecoPorCep.getLogradouro());
             }
         } else {
-
+            for (int p = 0; p < pessoaJuridica.getEnderecos().size(); p++) {
+                var enderecoRetorno = enderecoRepository.findById(pessoaJuridica.getEnderecos().get(p).getId()).get();
+                if (!enderecoRetorno.getCep().equals(pessoaJuridica.getEnderecos().get(p).getCep())) {
+                    var enderecoPorCep = this.buscaPorCep(pessoaJuridica.getEnderecos().get(p).getCep()).getBody(); // pesquisar na api de CEP e injetar no mesmo objeto
+                    assert enderecoPorCep != null;
+                    pessoaJuridica.getEnderecos().get(p).setBairro(enderecoPorCep.getBairro());
+                    pessoaJuridica.getEnderecos().get(p).setCidade(enderecoPorCep.getLocalidade());
+                    pessoaJuridica.getEnderecos().get(p).setUf(enderecoPorCep.getUf());
+                    pessoaJuridica.getEnderecos().get(p).setComplemento(enderecoPorCep.getComplemento());
+                    pessoaJuridica.getEnderecos().get(p).setRuaLogra(enderecoPorCep.getLogradouro());
+                }
+            }
         }
 
         service.salvarPj(pessoaJuridica);
