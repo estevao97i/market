@@ -1,9 +1,7 @@
 package estevao.market.controller;
 
 import estevao.market.dto.CepDTO;
-import estevao.market.enums.TipoEndereco;
 import estevao.market.exception.MarketException;
-import estevao.market.model.Endereco;
 import estevao.market.model.PessoaJuridica;
 import estevao.market.repository.PessoaJuridicaRepository;
 import estevao.market.service.PessoaJuridicaUserService;
@@ -52,7 +50,6 @@ public class PessoaJuridicaController {
                 pessoaJuridica.getEnderecos().get(p).setComplemento(enderecoPorCep.getComplemento());
                 pessoaJuridica.getEnderecos().get(p).setRuaLogra(enderecoPorCep.getLogradouro());
             }
-
         }
 
         service.salvarPj(pessoaJuridica);
