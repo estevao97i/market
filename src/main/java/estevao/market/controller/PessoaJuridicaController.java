@@ -3,6 +3,7 @@ package estevao.market.controller;
 import estevao.market.dto.CepDTO;
 import estevao.market.exception.MarketException;
 import estevao.market.model.PessoaJuridica;
+import estevao.market.repository.EnderecoRepository;
 import estevao.market.repository.PessoaJuridicaRepository;
 import estevao.market.service.PessoaJuridicaUserService;
 import estevao.market.utils.ValidateCnpj;
@@ -20,6 +21,7 @@ public class PessoaJuridicaController {
     private final PessoaJuridicaRepository repository;
 
     private final PessoaJuridicaUserService service;
+    private final EnderecoRepository enderecoRepository;
 
     @PostMapping(value = "**/SalvarPessoaJuridica")
     public ResponseEntity<PessoaJuridica> salvarPj(@RequestBody @Valid PessoaJuridica pessoaJuridica) throws MarketException {
@@ -50,6 +52,8 @@ public class PessoaJuridicaController {
                 pessoaJuridica.getEnderecos().get(p).setComplemento(enderecoPorCep.getComplemento());
                 pessoaJuridica.getEnderecos().get(p).setRuaLogra(enderecoPorCep.getLogradouro());
             }
+        } else {
+
         }
 
         service.salvarPj(pessoaJuridica);
