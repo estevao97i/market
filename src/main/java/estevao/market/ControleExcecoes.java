@@ -48,7 +48,8 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler {
             for (ObjectError obj: list) {
                 str.append(obj.getDefaultMessage()).append("\n");
             }
-        } if (ex instanceof HttpMessageNotReadableException) {
+        }
+        else if (ex instanceof HttpMessageNotReadableException) {
             str.append("Corpo da requisição faltando");
         }else {
             str.append(ex.getMessage());

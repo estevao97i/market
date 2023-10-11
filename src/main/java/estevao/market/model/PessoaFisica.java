@@ -1,5 +1,7 @@
 package estevao.market.model;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import javax.persistence.*;
 
 import java.util.Date;
@@ -9,6 +11,7 @@ import java.util.Date;
 @PrimaryKeyJoinColumn(name = "id")
 public class PessoaFisica extends Pessoa {
 
+    @CPF(message = "CPF inválido")
     @Column(nullable = false)
     private String cpf;
 

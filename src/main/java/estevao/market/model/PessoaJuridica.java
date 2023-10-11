@@ -1,5 +1,7 @@
 package estevao.market.model;
 
+import org.hibernate.validator.constraints.br.CNPJ;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,6 +9,7 @@ import javax.persistence.*;
 @PrimaryKeyJoinColumn(name = "id")
 public class PessoaJuridica extends Pessoa {
 
+    @CNPJ(message = "CNPJ inválido")
     @Column(nullable = false)
     private String cnpj;
     @Column(nullable = false)
