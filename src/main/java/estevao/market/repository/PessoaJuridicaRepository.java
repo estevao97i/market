@@ -1,9 +1,12 @@
 package estevao.market.repository;
 
+import estevao.market.model.PessoaFisica;
 import estevao.market.model.PessoaJuridica;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface PessoaJuridicaRepository extends CrudRepository<PessoaJuridica, Long> {
@@ -16,4 +19,7 @@ public interface PessoaJuridicaRepository extends CrudRepository<PessoaJuridica,
 
     @Query(" select count(p) from PessoaJuridica p where p.inscEstadual = :inscEstadual ")
     Integer existeInsEstadualCadastrado(String inscEstadual);
+
+    @Query(" Select p from PessoaJuridica p where p.nome like %:nome% ")
+    List<PessoaFisica> pesquisaPorNomePJ(String nome);
 }
