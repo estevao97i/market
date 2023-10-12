@@ -13,7 +13,7 @@ public interface PessoaFisicaRepository extends JpaRepository<PessoaFisica, Long
     @Query(" Select count(p) from PessoaFisica p where p.cpf = :cpf ")
     Integer existeCpfCadastrado(String cpf);
 
-    @Query(" Select p from PessoaFisica p where p.nome like %:nome% ")
+    @Query(" Select p from PessoaFisica p where p.nome like trim(upper(%:nome%)) ")
     List<PessoaFisica> pesquisaPorNomePF(String nome);
 
 }

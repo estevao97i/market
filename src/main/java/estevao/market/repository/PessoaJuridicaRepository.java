@@ -20,6 +20,6 @@ public interface PessoaJuridicaRepository extends CrudRepository<PessoaJuridica,
     @Query(" select count(p) from PessoaJuridica p where p.inscEstadual = :inscEstadual ")
     Integer existeInsEstadualCadastrado(String inscEstadual);
 
-    @Query(" Select p from PessoaJuridica p where p.nome like %:nome% ")
+    @Query(" Select p from PessoaJuridica p where p.nome like trim(upper(%:nome%)) ")
     List<PessoaFisica> pesquisaPorNomePJ(String nome);
 }
