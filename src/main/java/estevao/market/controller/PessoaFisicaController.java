@@ -40,7 +40,7 @@ public class PessoaFisicaController {
 
     @GetMapping(value = "**/buscarPorNomePf/{nome}")
     public ResponseEntity<List<PessoaFisica>> obterPorNome(@PathVariable("nome") String nome) {
-        var pessoaFisicaPorNome = pessoaRepository.pesquisaPorNomePF(nome);
+        var pessoaFisicaPorNome = pessoaRepository.pesquisaPorNomePF(nome.trim().toUpperCase());
         return new ResponseEntity<>(pessoaFisicaPorNome, HttpStatus.OK);
     }
 
