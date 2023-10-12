@@ -43,4 +43,10 @@ public class PessoaFisicaController {
         var pessoaFisicaPorNome = pessoaRepository.pesquisaPorNomePF(nome);
         return new ResponseEntity<>(pessoaFisicaPorNome, HttpStatus.OK);
     }
+
+    @GetMapping(value = "**/buscarPorCpfPf/{cpf}")
+    public ResponseEntity<List<PessoaFisica>> obterPorCpf(@PathVariable("cpf") String cpf) {
+        var pessoaFisicaPorCpf = pessoaRepository.pesquisaPorCPF(cpf);
+        return new ResponseEntity<>(pessoaFisicaPorCpf, HttpStatus.OK);
+    }
 }

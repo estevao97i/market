@@ -2,6 +2,7 @@ package estevao.market.controller;
 
 import estevao.market.dto.CepDTO;
 import estevao.market.exception.MarketException;
+import estevao.market.model.PessoaFisica;
 import estevao.market.model.PessoaJuridica;
 import estevao.market.repository.EnderecoRepository;
 import estevao.market.repository.PessoaJuridicaRepository;
@@ -78,10 +79,16 @@ public class PessoaJuridicaController {
         var pessoaJuridicaPorNome = repository.pesquisaPorNomePJ(nome);
         return new ResponseEntity<>(pessoaJuridicaPorNome, HttpStatus.OK);
     }
+    @GetMapping(value = "**/buscarPorCnpjPJ/{cnpj}")
+    public ResponseEntity<List<PessoaJuridica>> obterPorCpf(@PathVariable("cnpj") String cnpj) {
+        var pessoaFisicaPorCnpj = repository.pesquisaPorCNPJ(cnpj);
+        return new ResponseEntity<>(pessoaFisicaPorCnpj, HttpStatus.OK);
+    }
 
     @GetMapping(value = "consultaCep/{cep}")
     public ResponseEntity<CepDTO> buscaPorCep(@PathVariable("cep") String cep) {
         var cepBuscado = service.consultaCep(cep);
         return ResponseEntity.ok(cepBuscado);
     }
+
 }
