@@ -13,13 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class PessoaJuridicaController {
 
     private final PessoaJuridicaRepository repository;
-
     private final PessoaJuridicaUserService service;
     private final EnderecoRepository enderecoRepository;
 
@@ -42,6 +42,7 @@ public class PessoaJuridicaController {
             throw new MarketException("CNPJ inválido -> " + pessoaJuridica.getCnpj());
         }
 
+        // insere puxando da api de cep pelo cep passado na request
         if (pessoaJuridica.getId() == null || pessoaJuridica.getId() <= 0) {
             for (int p = 0; p < pessoaJuridica.getEnderecos().size(); p++) {
                 var enderecoPorCep = this.buscaPorCep(pessoaJuridica.getEnderecos().get(p).getCep()).getBody(); // pesquisar na api de CEP e injetar no mesmo objeto
@@ -70,6 +71,12 @@ public class PessoaJuridicaController {
         service.salvarPj(pessoaJuridica);
 
         return new ResponseEntity<>(pessoaJuridica, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "**/buscarPorNomePj/{nome}")
+    public ResponseEntity<List<PessoaJuridica>> obterPorNome(@PathVariable("nome") String nome) {
+        var pessoaJuridicaPorNome = repository.pesquisaPorNomePJ(nome);
+        return new ResponseEntity<>(pessoaJuridicaPorNome, HttpStatus.OK);
     }
 
     @GetMapping(value = "consultaCep/{cep}")

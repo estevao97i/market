@@ -2,17 +2,17 @@ package estevao.market.controller;
 
 import estevao.market.exception.MarketException;
 import estevao.market.model.PessoaFisica;
+import estevao.market.model.PessoaJuridica;
 import estevao.market.repository.PessoaFisicaRepository;
 import estevao.market.service.PessoaFisicaUserService;
 import estevao.market.utils.ValidateCpf;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,5 +36,11 @@ public class PessoaFisicaController {
         pessoaService.salvarPf(pessoaFisica);
 
         return new ResponseEntity<>(pessoaFisica, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "**/buscarPorNomePf/{nome}")
+    public ResponseEntity<List<PessoaFisica>> obterPorNome(@PathVariable("nome") String nome) {
+        var pessoaFisicaPorNome = pessoaRepository.pesquisaPorNomePF(nome);
+        return new ResponseEntity<>(pessoaFisicaPorNome, HttpStatus.OK);
     }
 }
