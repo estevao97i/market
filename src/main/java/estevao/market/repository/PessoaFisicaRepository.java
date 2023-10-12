@@ -16,4 +16,7 @@ public interface PessoaFisicaRepository extends JpaRepository<PessoaFisica, Long
     @Query(" Select p from PessoaFisica p where trim(upper(p.nome)) like %:nome% ")
     List<PessoaFisica> pesquisaPorNomePF(String nome);
 
+    @Query(" Select p from PessoaFisica p where p.cpf = :cpf ")
+    List<PessoaFisica> pesquisaPorCPF(String cpf);
+
 }
