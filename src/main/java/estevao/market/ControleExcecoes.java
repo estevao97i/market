@@ -3,6 +3,7 @@ package estevao.market;
 import estevao.market.dto.ObjectErrorDTO;
 import estevao.market.exception.MarketException;
 import estevao.market.service.SendServiceEmail;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.List;
@@ -66,7 +69,13 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler {
         errorDTO.setCode(status.value() + " ==> " + status.getReasonPhrase());
 
         ex.printStackTrace();
-        serviceEmail.enviarEmailHtml("Erro na loja Virtual", , "responsavel@asdsad.com");
+        try {
+            serviceEmail.enviarEmailHtml("Erro na loja Virtual", ExceptionUtils.getStackTrace(ex), "responsavel@asdsad.com");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
 
         return new ResponseEntity<>(errorDTO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -101,6 +110,14 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler {
         errorDTO.setCode(HttpStatus.INTERNAL_SERVER_ERROR.toString());
 
         ex.printStackTrace();
+
+        try {
+            serviceEmail.enviarEmailHtml("Erro na loja Virtual", ExceptionUtils.getStackTrace(ex), "responsavel@asdsad.com");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
 
         return new ResponseEntity<>(errorDTO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
