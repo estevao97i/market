@@ -2,7 +2,6 @@ package estevao.market.controller;
 
 import estevao.market.exception.MarketException;
 import estevao.market.model.PessoaFisica;
-import estevao.market.model.PessoaJuridica;
 import estevao.market.repository.PessoaFisicaRepository;
 import estevao.market.service.PessoaFisicaUserService;
 import estevao.market.utils.ValidateCpf;
