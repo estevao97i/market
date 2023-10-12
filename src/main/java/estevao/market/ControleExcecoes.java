@@ -2,6 +2,7 @@ package estevao.market;
 
 import estevao.market.dto.ObjectErrorDTO;
 import estevao.market.exception.MarketException;
+import estevao.market.service.SendServiceEmail;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +22,12 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ControleExcecoes extends ResponseEntityExceptionHandler {
+
+    private final SendServiceEmail serviceEmail;
+
+    public ControleExcecoes(SendServiceEmail serviceEmail) {
+        this.serviceEmail = serviceEmail;
+    }
 
     // Tem que implementar essa exceção dentro do projeto
     // Capturando exceção customizada do sistema MarketException
@@ -59,6 +66,7 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler {
         errorDTO.setCode(status.value() + " ==> " + status.getReasonPhrase());
 
         ex.printStackTrace();
+        serviceEmail.enviarEmailHtml("Erro na loja Virtual", , "responsavel@asdsad.com");
 
         return new ResponseEntity<>(errorDTO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
