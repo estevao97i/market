@@ -10,6 +10,7 @@ import estevao.market.utils.ValidateCnpj;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,6 +23,8 @@ public class PessoaJuridicaController {
     private final PessoaJuridicaRepository repository;
     private final PessoaJuridicaUserService service;
     private final EnderecoRepository enderecoRepository;
+
+    private final JdbcTemplate jdbcTemplate;
 
     @PostMapping(value = "**/SalvarPessoaJuridica")
     public ResponseEntity<PessoaJuridica> salvarPj(@RequestBody @Valid PessoaJuridica pessoaJuridica) throws MarketException {
@@ -75,6 +78,9 @@ public class PessoaJuridicaController {
 
     @GetMapping(value = "**/buscarPorNomePj/{nome}")
     public ResponseEntity<List<PessoaJuridica>> obterPorNome(@PathVariable("nome") String nome) {
+
+        jdbcTemplate.execute("begin; update registro_acesso_end_point set qnt_acesso_end_point = qnt_acesso_end_point + 1 where nome_end_point = 'buscarPorNomePj'; commit;");
+
         var pessoaJuridicaPorNome = repository.pesquisaPorNomePJ(nome.trim().toUpperCase());
         return new ResponseEntity<>(pessoaJuridicaPorNome, HttpStatus.OK);
     }
