@@ -1,5 +1,6 @@
 package estevao.market.controller;
 
+import estevao.market.enums.TipoPessoa;
 import estevao.market.exception.MarketException;
 import estevao.market.model.PessoaFisica;
 import estevao.market.repository.PessoaFisicaRepository;
@@ -26,6 +27,10 @@ public class PessoaFisicaController {
 
         if (!ValidateCpf.isCPF(pessoaFisica.getCpf())) {
             throw new MarketException("CPF inválido -> " + pessoaFisica.getCpf());
+        }
+
+        if (pessoaFisica.getTipoPessoa() == null) {
+            pessoaFisica.setTipoPessoa(TipoPessoa.FISICA.name());
         }
 
         if (pessoaFisica.getId() == null && pessoaRepository.existeCpfCadastrado(pessoaFisica.getCpf()) > 0) {

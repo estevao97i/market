@@ -30,6 +30,10 @@ public class PessoaJuridicaController {
             throw new MarketException("Não foi possível salvar. Pessoa Jurídica -> NULL");
         }
 
+        if (pessoaJuridica.getTipoPessoa() == null) {
+            throw new MarketException("Informe o tipo -> Jurídico ou Fornecedor da Loja");
+        }
+
         if (pessoaJuridica.getId() == null && repository.existeCnpjCadastrado(pessoaJuridica.getCnpj()) > 0) {
             throw new MarketException("CNPJ já cadastrado -> " + pessoaJuridica.getCnpj());
         }
