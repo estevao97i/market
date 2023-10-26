@@ -38,7 +38,7 @@ public class CnpjDTO implements Serializable {
 
 }
 
-class AtividadeDTO {
+class AtividadeDTO implements Serializable {
     private String code;
     private String text;
 
@@ -59,7 +59,7 @@ class AtividadeDTO {
     }
 }
 
-class BillingDTO {
+class BillingDTO implements Serializable {
     private boolean free;
     private boolean database;
 
@@ -80,7 +80,7 @@ class BillingDTO {
     }
 }
 
-class QsaDTO {
+class QsaDTO implements Serializable {
     private String nome;
     private String qual;
     private String pais_origem;
