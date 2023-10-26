@@ -7,7 +7,7 @@ import java.util.List;
 
 public class CnpjDTO implements Serializable {
 
-    private Date abertura;
+    private String abertura;
     private String situacao;
     private String tipo;
     private String nome;
@@ -36,11 +36,11 @@ public class CnpjDTO implements Serializable {
     private QsaDTO qsa;
     private BillingDTO billing;
 
-    public Date getAbertura() {
+    public String getAbertura() {
         return abertura;
     }
 
-    public void setAbertura(Date abertura) {
+    public void setAbertura(String abertura) {
         this.abertura = abertura;
     }
 
