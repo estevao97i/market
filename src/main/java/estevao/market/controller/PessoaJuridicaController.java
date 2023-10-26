@@ -24,8 +24,6 @@ public class PessoaJuridicaController {
     private final PessoaJuridicaUserService service;
     private final EnderecoRepository enderecoRepository;
 
-    private final JdbcTemplate jdbcTemplate;
-
     @PostMapping(value = "**/SalvarPessoaJuridica")
     public ResponseEntity<PessoaJuridica> salvarPj(@RequestBody @Valid PessoaJuridica pessoaJuridica) throws MarketException {
 
@@ -78,14 +76,13 @@ public class PessoaJuridicaController {
 
     @GetMapping(value = "**/buscarPorNomePj/{nome}")
     public ResponseEntity<List<PessoaJuridica>> obterPorNome(@PathVariable("nome") String nome) {
-
-        jdbcTemplate.execute("begin; update registro_acesso_end_point set qnt_acesso_end_point = qnt_acesso_end_point + 1 where nome_end_point = 'buscarPorNomePj'; commit;");
-
+        service.contaRequisicoesEndPoint("buscarPorNomePj");
         var pessoaJuridicaPorNome = repository.pesquisaPorNomePJ(nome.trim().toUpperCase());
         return new ResponseEntity<>(pessoaJuridicaPorNome, HttpStatus.OK);
     }
     @GetMapping(value = "**/buscarPorCnpjPJ/{cnpj}")
     public ResponseEntity<List<PessoaJuridica>> obterPorCpf(@PathVariable("cnpj") String cnpj) {
+        service.contaRequisicoesEndPoint("buscarPorCnpjPJ");
         var pessoaFisicaPorCnpj = repository.pesquisaPorCNPJ(cnpj);
         return new ResponseEntity<>(pessoaFisicaPorCnpj, HttpStatus.OK);
     }

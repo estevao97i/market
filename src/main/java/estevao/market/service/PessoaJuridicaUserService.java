@@ -81,5 +81,13 @@ public class PessoaJuridicaUserService {
         return new RestTemplate().getForEntity("https://viacep.com.br/ws/"+ cep +"/json/", CepDTO.class).getBody();
     }
 
+    public void contaRequisicoesEndPoint(String endPoint) {
+
+        StringBuilder str = new StringBuilder();
+        str.append(" begin; update registro_acesso_end_point set qnt_acesso_end_point = qnt_acesso_end_point + 1 ");
+        str.append(" where nome_end_point = ? ; commit; ");
+        jdbcTemplate.update(String.valueOf(str), endPoint);
+    }
+
 
 }
