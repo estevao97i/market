@@ -1,5 +1,7 @@
 package estevao.market.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,7 @@ public class CnpjDTO implements Serializable {
     private String nome;
     private String fantasia;
     private String porte;
-    private List<AtividadeDTO> natureza_juridica = new ArrayList<>();
+    private List<AtividadeDTO> atividade_principal = new ArrayList<>();
     private List<AtividadeDTO> atividades_secundarias = new ArrayList<>();
     private String logradouro;
     private String numero;
@@ -32,8 +34,18 @@ public class CnpjDTO implements Serializable {
     private String situacao_especial;
     private String data_situacao_especial;
     private String capital_social;
-    private QsaDTO qsa;
+    private List<QsaDTO> qsa;
     private BillingDTO billing;
+    @JsonIgnore
+    private ExtraDTO extra;
+
+    public ExtraDTO getExtra() {
+        return extra;
+    }
+
+    public void setExtra(ExtraDTO extra) {
+        this.extra = extra;
+    }
 
     public String getAbertura() {
         return abertura;
@@ -83,12 +95,12 @@ public class CnpjDTO implements Serializable {
         this.porte = porte;
     }
 
-    public List<AtividadeDTO> getNatureza_juridica() {
-        return natureza_juridica;
+    public List<AtividadeDTO> getAtividade_principal() {
+        return atividade_principal;
     }
 
-    public void setNatureza_juridica(List<AtividadeDTO> natureza_juridica) {
-        this.natureza_juridica = natureza_juridica;
+    public void setAtividade_principal(List<AtividadeDTO> atividade_principal) {
+        this.atividade_principal = atividade_principal;
     }
 
     public List<AtividadeDTO> getAtividades_secundarias() {
@@ -243,11 +255,11 @@ public class CnpjDTO implements Serializable {
         this.capital_social = capital_social;
     }
 
-    public QsaDTO getQsa() {
+    public List<QsaDTO> getQsa() {
         return qsa;
     }
 
-    public void setQsa(QsaDTO qsa) {
+    public void setQsa(List<QsaDTO> qsa) {
         this.qsa = qsa;
     }
 
@@ -260,92 +272,10 @@ public class CnpjDTO implements Serializable {
     }
 }
 
-class AtividadeDTO implements Serializable {
-    private String code;
-    private String text;
 
-    public String getCode() {
-        return code;
-    }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
 
-    public String getText() {
-        return text;
-    }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-}
 
-class BillingDTO implements Serializable {
-    private boolean free;
-    private boolean database;
 
-    public boolean isFree() {
-        return free;
-    }
 
-    public void setFree(boolean free) {
-        this.free = free;
-    }
-
-    public boolean isDatabase() {
-        return database;
-    }
-
-    public void setDatabase(boolean database) {
-        this.database = database;
-    }
-}
-
-class QsaDTO implements Serializable {
-    private String nome;
-    private String qual;
-    private String pais_origem;
-    private String nome_rep_legal;
-    private String qual_rep_legal;
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getQual() {
-        return qual;
-    }
-
-    public void setQual(String qual) {
-        this.qual = qual;
-    }
-
-    public String getPais_origem() {
-        return pais_origem;
-    }
-
-    public void setPais_origem(String pais_origem) {
-        this.pais_origem = pais_origem;
-    }
-
-    public String getNome_rep_legal() {
-        return nome_rep_legal;
-    }
-
-    public void setNome_rep_legal(String nome_rep_legal) {
-        this.nome_rep_legal = nome_rep_legal;
-    }
-
-    public String getQual_rep_legal() {
-        return qual_rep_legal;
-    }
-
-    public void setQual_rep_legal(String qual_rep_legal) {
-        this.qual_rep_legal = qual_rep_legal;
-    }
-}

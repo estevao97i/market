@@ -1,6 +1,7 @@
 package estevao.market.service;
 
 import estevao.market.dto.CepDTO;
+import estevao.market.dto.CnpjDTO;
 import estevao.market.model.PessoaJuridica;
 import estevao.market.model.Usuario;
 import estevao.market.repository.PessoaJuridicaRepository;
@@ -87,6 +88,10 @@ public class PessoaJuridicaUserService {
         str.append(" begin; update registro_acesso_end_point set qnt_acesso_end_point = qnt_acesso_end_point + 1 ");
         str.append(" where nome_end_point = ? ; commit; ");
         jdbcTemplate.update(String.valueOf(str), endPoint);
+    }
+
+    public CnpjDTO consultaCNPJ(String cnpj) {
+        return new RestTemplate().getForEntity("https://receitaws.com.br/v1/cnpj/" + cnpj, CnpjDTO.class).getBody();
     }
 
 
