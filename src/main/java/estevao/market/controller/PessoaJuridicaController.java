@@ -91,15 +91,15 @@ public class PessoaJuridicaController {
         return new ResponseEntity<>(pessoaFisicaPorCnpj, HttpStatus.OK);
     }
 
-    @GetMapping(value = "consultaCep/{cep}")
+    @GetMapping(value = "**/consultaCep/{cep}")
     public ResponseEntity<CepDTO> buscaPorCep(@PathVariable("cep") String cep) {
         var cepBuscado = service.consultaCep(cep);
         return ResponseEntity.ok(cepBuscado);
     }
 
-    @GetMapping(value = "consultaCnpj/{cnpj}")
+    @GetMapping(value = "**/consultaCnpj/{cnpj}")
     public ResponseEntity<CnpjDTO> consultaCnpj(@PathVariable("cnpj") String cnpj) {
-        var cnpjRetornado = service.consultaCNPJ(cnpj);
+        var cnpjRetornado = service.consultaCNPJ(cnpj.replace("/", "").replace(".","").replace("-", ""));
         return ResponseEntity.ok(cnpjRetornado);
     }
 
