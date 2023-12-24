@@ -6,6 +6,8 @@ import estevao.market.repository.CategoriaProdutoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CategoriaProdutoService {
@@ -20,4 +22,8 @@ public class CategoriaProdutoService {
     }
 
     public void deleteById(Long id) { repository.deleteById(id);}
+
+    public List<CategoriaProduto> findByDesc(String desc) {
+        return repository.buscarPorDesc(desc.trim().toUpperCase());
+    }
 }
