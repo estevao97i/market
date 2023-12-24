@@ -1,5 +1,6 @@
 package estevao.market.controller;
 
+import estevao.market.exception.MarketException;
 import estevao.market.model.CategoriaProduto;
 import estevao.market.service.CategoriaProdutoService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,11 @@ public class CategoriaProdutoController {
 
     @PostMapping(value = "**/salvarCategoriaProduto")
     public ResponseEntity<CategoriaProduto> salvarCategoriaProduto(@RequestBody CategoriaProduto categoriaProduto) {
+
+        if (categoriaProduto == null) {
+            throw new MarketException("Categoria produto está vazia");
+        }
+
         return ResponseEntity.ok(service.salvar(categoriaProduto));
     }
 }

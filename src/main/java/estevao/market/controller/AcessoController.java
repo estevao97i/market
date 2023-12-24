@@ -2,6 +2,7 @@ package estevao.market.controller;
 
 import estevao.market.model.Acesso;
 import estevao.market.service.AcessoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class AcessoController {
-
-    @Autowired
-    private AcessoService service;
-
+    private final AcessoService service;
     @GetMapping(value = "**/listarTodos")
     public ResponseEntity<List<Acesso>> listAll() {
 
