@@ -16,7 +16,7 @@ public class ProdutoController {
 
     private final ProdutoService service;
 
-    @PostMapping(value = "**/salvarCategoriaProduto")
+    @PostMapping(value = "**/salvarProduto")
     public ResponseEntity<Produto> salvarProduto(@RequestBody Produto produto) {
 
         if (produto == null) {
@@ -30,7 +30,7 @@ public class ProdutoController {
         return ResponseEntity.ok(service.salvar(produto));
     }
 
-    @DeleteMapping(value = "**/Produto")
+    @DeleteMapping(value = "**/produto")
     public ResponseEntity<?> delete(@RequestBody Produto produto) {
 
         service.deleteById(produto.getId());
@@ -38,7 +38,7 @@ public class ProdutoController {
         return new ResponseEntity("Produto Removido", HttpStatus.OK);
     }
 
-    @GetMapping(value = "**/Produto/{nome}")
+    @GetMapping(value = "**/produto/{nome}")
     public ResponseEntity<List<Produto>> findByDesc(@PathVariable("nome") String nome) {
 
         return ResponseEntity.ok(service.findByNome(nome));
