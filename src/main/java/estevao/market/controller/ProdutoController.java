@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +18,7 @@ public class ProdutoController {
     private final ProdutoService service;
 
     @PostMapping(value = "**/salvarProduto")
-    public ResponseEntity<Produto> salvarProduto(@RequestBody Produto produto) {
+    public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) {
 
         if (produto == null) {
             throw new MarketException("Produto está vazio");
