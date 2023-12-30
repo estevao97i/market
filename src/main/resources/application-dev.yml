@@ -50,7 +50,7 @@ spring:
 #        mostra pro hibernate a plataforma que deve usar de banco de dados
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     hibernate:
-#      atualiza toda vez que roda o banco (update/create/none)
+#      atualiza toda vez que roda o banco (update/create/none/validate)
       ddl-auto: none
 
   servlet:
@@ -88,7 +88,7 @@ spring:
     static-path-pattern: /resources/static/**
 
   flyway:
-    enabled: true
+    enabled: false
     # migrar o arquivo de init do versionamento criando uma baseline
     baseline-on-migrate: true
     # caminho da pasta

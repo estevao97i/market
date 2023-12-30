@@ -1,6 +1,7 @@
 package estevao.market.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -38,8 +39,14 @@ public class Produto implements Serializable {
     private Integer qtdClique = 0;
 
     @ManyToOne(targetEntity = Pessoa.class)
-    @JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    @JoinColumn(name = "empresa_id", nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
     private PessoaJuridica empresa;
+
+    @ManyToOne(targetEntity = CategoriaProduto.class)
+    @JoinColumn(name = "categoria_produto_id", nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "categoria_produto_fk"))
+    private CategoriaProduto categoriaProduto;
 
     public PessoaJuridica getEmpresa() {
         return empresa;

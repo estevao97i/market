@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
 
-    @Query("SELECT u FROM Usuario u WHERE u.login = ?1")
+    @Query("SELECT u FROM Usuario u WHERE u.login = :login")
     Usuario findUserByLogin(String login);
 
     @Query("select u from Usuario u where u.pessoa.id = :id " +

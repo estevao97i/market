@@ -50,7 +50,6 @@ public class Usuario implements UserDetails {
         return this.acessos;
     }
 
-
     public Pessoa getEmpresa() {
         return empresa;
     }
