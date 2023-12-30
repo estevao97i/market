@@ -28,6 +28,14 @@ public class ProdutoController {
             throw new MarketException("Empresa deve ser informada");
         }
 
+        if (produto.getCategoriaProduto().getId() == null || produto.getCategoriaProduto() == null) {
+            throw new MarketException("Categoria do Produto deve ser informada");
+        }
+
+        if (produto.getMarcaProduto().getId() == null || produto.getMarcaProduto() == null) {
+            throw new MarketException("Marca do Produto deve ser informada");
+        }
+
         return ResponseEntity.ok(service.salvar(produto));
     }
 

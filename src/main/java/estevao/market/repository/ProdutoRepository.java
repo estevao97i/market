@@ -13,6 +13,9 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     @Query("select count(p) from Produto p where trim(upper(p.nome)) = :nome")
     Integer existByName(String nome);
 
+    @Query("select count(p) from Produto p where ((trim(upper(p.nome)) = :nome) and (p.empresa.id = :idEmpresa))")
+    Integer existByNameAndEmpresa(String nome, Long idEmpresa);
+
     @Query("select p from Produto p where upper(trim(p.nome)) like '%:nome%'")
     List<Produto> buscarPorNome(String nome);
 }

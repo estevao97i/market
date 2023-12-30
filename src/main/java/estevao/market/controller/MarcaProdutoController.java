@@ -20,7 +20,7 @@ public class MarcaProdutoController {
     public ResponseEntity<MarcaProduto> salvarMarcaProduto(@RequestBody MarcaProduto marcaProduto) {
 
         if (marcaProduto == null) {
-            throw new MarketException("Marca produto está vazio");
+            throw new MarketException("Marca produto está vazia");
         }
 
         if (marcaProduto.getEmpresa().getId() == null || marcaProduto.getEmpresa() == null) {

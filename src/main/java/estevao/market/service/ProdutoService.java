@@ -18,8 +18,8 @@ public class ProdutoService {
 
     public Produto salvar(Produto produto) {
 
-        if (produto.getId() == null && repository.existByName(produto.getNome().trim().toUpperCase()) > 0) {
-            throw new MarketException("Já existe " + produto.getNome() + " cadastrado");
+        if (produto.getId() == null && repository.existByNameAndEmpresa(produto.getNome().trim().toUpperCase(), produto.getEmpresa().getId()) > 0) {
+            throw new MarketException("Já existe " + produto.getNome() + " cadastrado nesta empresa ");
         }
         produto = repository.save(produto);
         return produto;
