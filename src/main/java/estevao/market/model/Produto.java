@@ -51,6 +51,20 @@ public class Produto implements Serializable {
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "categoria_produto_fk"))
     private CategoriaProduto categoriaProduto;
 
+    @NotNull(message = "A marca do produto deve ser fornecida")
+    @ManyToOne(targetEntity = MarcaProduto.class)
+    @JoinColumn(name = "marca_produto_id", nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "marca_produto_fk"))
+    private MarcaProduto marcaProduto;
+
+    public MarcaProduto getMarcaProduto() {
+        return marcaProduto;
+    }
+
+    public void setMarcaProduto(MarcaProduto marcaProduto) {
+        this.marcaProduto = marcaProduto;
+    }
+
     public CategoriaProduto getCategoriaProduto() {
         return categoriaProduto;
     }
