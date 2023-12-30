@@ -44,18 +44,31 @@ public class Produto implements Serializable {
     @ManyToOne(targetEntity = PessoaJuridica.class)
     @JoinColumn(name = "empresa_id", nullable = false,
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
-    private PessoaJuridica empresa;
+    private PessoaJuridica empresa = new PessoaJuridica();
 
     @ManyToOne(targetEntity = CategoriaProduto.class)
     @JoinColumn(name = "categoria_produto_id", nullable = false,
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "categoria_produto_fk"))
-    private CategoriaProduto categoriaProduto;
+    private CategoriaProduto categoriaProduto = new CategoriaProduto();
 
     @NotNull(message = "A marca do produto deve ser fornecida")
     @ManyToOne(targetEntity = MarcaProduto.class)
     @JoinColumn(name = "marca_produto_id", nullable = false,
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "marca_produto_fk"))
-    private MarcaProduto marcaProduto;
+    private MarcaProduto marcaProduto = new MarcaProduto();
+
+    @ManyToOne(targetEntity = NotaItemProduto.class)
+    @JoinColumn(name = "nota_item_produto_id", nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "nota_item_produto_fk"))
+    private NotaItemProduto notaItemProduto = new NotaItemProduto();
+
+    public NotaItemProduto getNotaItemProduto() {
+        return notaItemProduto;
+    }
+
+    public void setNotaItemProduto(NotaItemProduto notaItemProduto) {
+        this.notaItemProduto = notaItemProduto;
+    }
 
     public MarcaProduto getMarcaProduto() {
         return marcaProduto;
