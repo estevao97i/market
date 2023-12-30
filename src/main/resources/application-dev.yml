@@ -51,7 +51,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     hibernate:
 #      atualiza toda vez que roda o banco (update/create/none/validate)
-      ddl-auto: none
+      ddl-auto: update
 
   servlet:
     multipart:

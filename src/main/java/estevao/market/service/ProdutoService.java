@@ -25,7 +25,9 @@ public class ProdutoService {
         return produto;
     }
 
-    public void deleteById(Long id) { repository.deleteById(id);}
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 
     public List<Produto> findByNome(String desc) {
         return repository.buscarPorNome(desc.trim().toUpperCase());

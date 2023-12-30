@@ -80,13 +80,13 @@ public class PessoaJuridicaController {
 
     @GetMapping(value = "**/buscarPorNomePj/{nome}")
     public ResponseEntity<List<PessoaJuridica>> obterPorNome(@PathVariable("nome") String nome) {
-        service.contaRequisicoesEndPoint("buscarPorNomePj");
+//        service.contaRequisicoesEndPoint("buscarPorNomePj");
         var pessoaJuridicaPorNome = repository.pesquisaPorNomePJ(nome.trim().toUpperCase());
         return new ResponseEntity<>(pessoaJuridicaPorNome, HttpStatus.OK);
     }
     @GetMapping(value = "**/buscarPorCnpjPJ/{cnpj}")
     public ResponseEntity<List<PessoaJuridica>> obterPorCpf(@PathVariable("cnpj") String cnpj) {
-        service.contaRequisicoesEndPoint("buscarPorCnpjPJ");
+//        service.contaRequisicoesEndPoint("buscarPorCnpjPJ");
         var pessoaFisicaPorCnpj = repository.pesquisaPorCNPJ(cnpj);
         return new ResponseEntity<>(pessoaFisicaPorCnpj, HttpStatus.OK);
     }

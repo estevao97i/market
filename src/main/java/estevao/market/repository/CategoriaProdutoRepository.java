@@ -15,6 +15,6 @@ public interface CategoriaProdutoRepository extends JpaRepository<CategoriaProdu
     @Query("select count(cp) from CategoriaProduto cp where trim(upper(cp.nomeDesc)) = :nomeDesc")
     Integer existByName(String nomeDesc);
 
-    @Query("select cp from CategoriaProduto cp where upper(trim(cp.nomeDesc)) like %:desc%")
+    @Query("select cp from CategoriaProduto cp where upper(trim(cp.nomeDesc)) like '%:desc%'")
     List<CategoriaProduto> buscarPorDesc(String desc);
 }

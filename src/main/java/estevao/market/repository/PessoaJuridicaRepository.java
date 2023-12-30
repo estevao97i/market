@@ -2,6 +2,7 @@ package estevao.market.repository;
 
 import estevao.market.model.PessoaFisica;
 import estevao.market.model.PessoaJuridica;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PessoaJuridicaRepository extends CrudRepository<PessoaJuridica, Long> {
+public interface PessoaJuridicaRepository extends JpaRepository<PessoaJuridica, Long> {
 
     @Query(" select count(p) from PessoaJuridica p where p.cnpj = :cnpj ")
     Integer existeCnpjCadastrado(String cnpj);

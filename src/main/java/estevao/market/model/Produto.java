@@ -1,7 +1,9 @@
 package estevao.market.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -15,6 +17,7 @@ public class Produto implements Serializable {
     private Long id;
     @Column(nullable = false)
     private String tipoUnidade;
+    @Size(min = 5, message = "Nome deve ter mais de 5 letras")
     @Column(nullable = false)
     private String nome;
     @Column(nullable = false)
@@ -38,7 +41,7 @@ public class Produto implements Serializable {
     private Boolean alertaqtdEstoque = Boolean.FALSE;
     private Integer qtdClique = 0;
 
-    @ManyToOne(targetEntity = Pessoa.class)
+    @ManyToOne(targetEntity = PessoaJuridica.class)
     @JoinColumn(name = "empresa_id", nullable = false,
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
     private PessoaJuridica empresa;
@@ -47,6 +50,14 @@ public class Produto implements Serializable {
     @JoinColumn(name = "categoria_produto_id", nullable = false,
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "categoria_produto_fk"))
     private CategoriaProduto categoriaProduto;
+
+    public CategoriaProduto getCategoriaProduto() {
+        return categoriaProduto;
+    }
+
+    public void setCategoriaProduto(CategoriaProduto categoriaProduto) {
+        this.categoriaProduto = categoriaProduto;
+    }
 
     public PessoaJuridica getEmpresa() {
         return empresa;
