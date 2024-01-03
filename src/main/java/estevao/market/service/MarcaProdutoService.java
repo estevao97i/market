@@ -29,4 +29,8 @@ public class MarcaProdutoService {
     public List<MarcaProduto> findByDesc(String desc) {
         return repository.buscarPorDesc(desc.trim().toUpperCase());
     }
+
+    public MarcaProduto findById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new MarketException("Marca não encontrada"));
+    }
 }

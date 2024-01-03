@@ -39,6 +39,14 @@ public class ProdutoController {
         return ResponseEntity.ok(service.salvar(produto));
     }
 
+    @GetMapping(value = "**/produto/{id}")
+    public ResponseEntity<Produto> findById(@PathVariable("id") Long id) {
+
+        var produtoRetornado = service.buscarPorId(id);
+
+        return ResponseEntity.ok(produtoRetornado);
+    }
+
     @DeleteMapping(value = "**/produto")
     public ResponseEntity<?> delete(@RequestBody Produto produto) {
 
@@ -47,7 +55,7 @@ public class ProdutoController {
         return new ResponseEntity("Produto Removido", HttpStatus.OK);
     }
 
-    @GetMapping(value = "**/produto/{nome}")
+    @GetMapping(value = "**/produtoNome/{nome}")
     public ResponseEntity<List<Produto>> findByDesc(@PathVariable("nome") String nome) {
 
         return ResponseEntity.ok(service.findByNome(nome));

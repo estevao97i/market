@@ -1,5 +1,7 @@
 package estevao.market.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -35,8 +37,10 @@ public class MarcaProduto implements Serializable {
         this.nomeDesc = nomeDesc;
     }
 
+    @JsonIgnore
     @ManyToOne(targetEntity = PessoaJuridica.class)
-    @JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
+    @JoinColumn(name = "empresa_id", nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
     private PessoaJuridica empresa;
 
     public PessoaJuridica getEmpresa() {

@@ -25,6 +25,10 @@ public class ProdutoService {
         return produto;
     }
 
+    public Produto buscarPorId(Long id) {
+        return repository.findById(id).orElseThrow(() -> new MarketException("Produto Não encontrado"));
+    }
+
     public void deleteById(Long id) {
         repository.deleteById(id);
     }

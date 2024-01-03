@@ -1,5 +1,7 @@
 package estevao.market.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
@@ -19,6 +21,7 @@ public class CategoriaProduto implements Serializable {
     @Column(name = "nome_desc", nullable = false)
     private String nomeDesc;
 
+    @JsonIgnore
     @ManyToOne(targetEntity = Pessoa.class)
     @JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
     private PessoaJuridica empresa;

@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface MarcaProdutoRepository extends JpaRepository<MarcaProduto, Long> {
 
-    @Query("select count(mp) from MarcaProduto mp where trim(upper(mp.nomeDesc)) = :nomeDesc")
+    @Query("select count(mp) from MarcaProduto mp where trim(upper(mp.nomeDesc)) = :nomeDesc ")
     Integer existByName(String nomeDesc);
 
-    @Query("select mc from MarcaProduto mc where upper(trim(mc.nomeDesc)) like '%:desc%'")
+    @Query("select mp from MarcaProduto mp where upper(trim(mp.nomeDesc)) like %?1%")
     List<MarcaProduto> buscarPorDesc(String desc);
 }
