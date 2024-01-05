@@ -11,6 +11,6 @@ public interface MarcaProdutoRepository extends JpaRepository<MarcaProduto, Long
     @Query("select count(mp) from MarcaProduto mp where trim(upper(mp.nomeDesc)) = :nomeDesc ")
     Integer existByName(String nomeDesc);
 
-    @Query("select mp from MarcaProduto mp where upper(trim(mp.nomeDesc)) like %?1%")
+    @Query("select mp from MarcaProduto mp where trim(upper(mp.nomeDesc)) like %?1%")
     List<MarcaProduto> buscarPorDesc(String desc);
 }

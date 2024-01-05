@@ -11,8 +11,6 @@ import java.util.Objects;
 @SequenceGenerator(name = "seq_marca_produto", sequenceName = "seq_marca_produto", allocationSize = 1)
 public class MarcaProduto implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_marca_produto")
     @Column(name = "id", nullable = false)
@@ -20,6 +18,11 @@ public class MarcaProduto implements Serializable {
 
     @Column(name = "nome_desc", nullable = false)
     private String nomeDesc;
+//    @JsonIgnore
+    @ManyToOne(targetEntity = PessoaJuridica.class)
+    @JoinColumn(name = "empresa_id", nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+    private PessoaJuridica empresa;
 
     public void setId(Long id) {
         this.id = id;
@@ -37,11 +40,6 @@ public class MarcaProduto implements Serializable {
         this.nomeDesc = nomeDesc;
     }
 
-    @JsonIgnore
-    @ManyToOne(targetEntity = PessoaJuridica.class)
-    @JoinColumn(name = "empresa_id", nullable = false,
-            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_fk"))
-    private PessoaJuridica empresa;
 
     public PessoaJuridica getEmpresa() {
         return empresa;
